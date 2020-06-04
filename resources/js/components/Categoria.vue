@@ -102,7 +102,7 @@
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de categoría">
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -111,11 +111,17 @@
                                     <input type="text" v-model="descripcion" class="form-control" placeholder="Descripcion Categoria">
                                 </div>
                             </div>
+                            <div v-show="errorCategoria" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in arrayErroresCategoria" :key="error" v-text="error">
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal()" class="btn btn-secondary">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary">Guardar</button>
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarCategoria()">Guardar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -160,6 +166,8 @@
             modal : 0,
             tituloModal :'',
             tipoAccion : 0,
+            errorCategoria :0,
+            arrayErroresCategoria :[]
         }
             },
         methods:{
@@ -179,7 +187,23 @@
                     });
             },
             registrarCategoria(){
+                console.log("entra");
+                if(this.validarCategoria()){
+                    return;
+                }
 
+                let me = this;
+                axios.post('/categoria', {
+                    'nombre': this.nombre,
+                    'descripcion': this.descripcion
+                })
+                    .then(function (response) {
+                        me.cerrarModal();
+                        me.listarCategoria();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             abrirModal(modelo,accion,data = [])
             {
@@ -204,6 +228,19 @@
                     }
                 }
             },
+            validarCategoria(){
+                this.errorCategoria = 0;
+                this.arrayErroresCategoria = [];
+                if(!this.nombre){
+                    this.arrayErroresCategoria.push("El nombre de la categoria no puede ser vacio");
+                }
+
+                if(this.arrayErroresCategoria.length){
+                    this.errorCategoria = 1;
+                }
+                return this.errorCategoria;
+
+            },
             cerrarModal()
             {
                 this.modal=0;
@@ -227,5 +264,15 @@
     .modal-content{
         width: 100% !important;
         position: absolute !important;
+    }
+
+    .div-error{
+        display: flex;
+        justify-content: center;
+    }
+    .text-error{
+        color:red;
+        font-weight: bold;
+
     }
 </style>
