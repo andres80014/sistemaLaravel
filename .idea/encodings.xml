@@ -3,6 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/../sislaravel/routes/web.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../sislaravel/webpack.mix.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/.env" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database/migrations/2020_06_04_150557_create_categories_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/pantilla.blade.php" charset="UTF-8" />
