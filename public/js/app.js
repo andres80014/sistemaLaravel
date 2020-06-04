@@ -2066,9 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      categoriaId: 0,
       nombre: '',
       descripcion: '',
       arrayCategoria: [],
@@ -2091,9 +2093,18 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {// always executed
       });
     },
+    listarCategoriaId: function listarCategoriaId() {
+      var me = this;
+      axios.get('/categoria/' + this.categoriaId).then(function (response) {
+        // handle success
+        me.arrayCategoria = [response.data];
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      }).then(function () {// always executed
+      });
+    },
     registrarCategoria: function registrarCategoria() {
-      console.log("entra");
-
       if (this.validarCategoria()) {
         return;
       }
@@ -2105,6 +2116,23 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.cerrarModal();
         me.listarCategoria();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    actualizarCategoria: function actualizarCategoria() {
+      if (this.validarCategoria()) {
+        return;
+      }
+
+      var me = this;
+      axios.put('/categoria/actualizar', {
+        'nombre': this.nombre,
+        'descripcion': this.descripcion,
+        'id': this.categoriaId
+      }).then(function (response) {
+        me.cerrarModal();
+        me.listarCategoriaId();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2127,7 +2155,14 @@ __webpack_require__.r(__webpack_exports__);
                 }
 
               case 'actualizar':
-                {}
+                {
+                  this.categoriaId = data.id;
+                  this.modal = 1;
+                  this.nombre = data.nombre;
+                  this.descripcion = data.descripcion;
+                  this.tituloModal = 'Actualizar Categoria';
+                  this.tipoAccion = 2;
+                }
             }
           }
       }
@@ -38644,7 +38679,12 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { type: "button" }
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarCategoria()
+                          }
+                        }
                       },
                       [_vm._v("Actualizar")]
                     )

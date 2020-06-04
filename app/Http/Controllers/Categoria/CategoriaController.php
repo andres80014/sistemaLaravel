@@ -14,6 +14,10 @@ class CategoriaController extends Controller
         return $categorias;
     }
 
+    public function show($id){
+        $categoria              = Categoria::findOrFail($id);
+        return $categoria;
+    }
     public function store(Request $request){
         $categoria = new Categoria();
         $categoria->nombre = $request->nombre;

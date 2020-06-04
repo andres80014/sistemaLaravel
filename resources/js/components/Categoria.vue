@@ -38,6 +38,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr v-for="categoria in arrayCategoria" :key="categoria.id">
                             <td>
                                 <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-warning btn-sm">
@@ -122,7 +123,7 @@
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal()" class="btn btn-secondary">Cerrar</button>
                         <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarCategoria()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary">Actualizar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary"  @click="actualizarCategoria()">Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -160,6 +161,7 @@
     export default {
         data(){
         return{
+            categoriaId : 0,
             nombre: '',
             descripcion:'',
             arrayCategoria:[],
@@ -186,8 +188,22 @@
                         // always executed
                     });
             },
+            listarCategoriaId(){
+                let me = this;
+                axios.get('/categoria/'+this.categoriaId)
+                    .then(function (response) {
+                        // handle success
+                        me.arrayCategoria = [response.data];
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            },
             registrarCategoria(){
-                console.log("entra");
                 if(this.validarCategoria()){
                     return;
                 }
@@ -200,6 +216,24 @@
                     .then(function (response) {
                         me.cerrarModal();
                         me.listarCategoria();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            actualizarCategoria(){
+                if(this.validarCategoria()){
+                    return;
+                }
+                let me = this;
+                axios.put('/categoria/actualizar', {
+                    'nombre': this.nombre,
+                    'descripcion': this.descripcion,
+                    'id' : this.categoriaId
+                })
+                    .then(function (response) {
+                        me.cerrarModal();
+                        me.listarCategoriaId();
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -222,7 +256,12 @@
                             }
                             case 'actualizar':
                             {
-
+                                this.categoriaId = data.id;
+                                this.modal=1;
+                                this.nombre =data.nombre;
+                                this.descripcion =data.descripcion;
+                                this.tituloModal = 'Actualizar Categoria';
+                                this.tipoAccion  = 2;
                             }
                         }
                     }
