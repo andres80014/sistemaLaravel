@@ -16,6 +16,7 @@
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<div id="app">
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -149,7 +150,7 @@
     <!-- /Fin del contenido principal -->
 </div>
 
-
+</div>
 
 <footer class="app-footer">
     <span><a href="http://www.incanatoit.com/">IncanatoIT</a> &copy; 2017</span>
@@ -158,6 +159,7 @@
 
 <!-- Bootstrap and necessary plugins -->
 <script src="js/plantilla.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 
