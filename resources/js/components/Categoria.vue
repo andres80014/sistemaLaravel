@@ -44,10 +44,18 @@
                                 <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-warning btn-sm">
                                     <i class="icon-pencil"></i>
                                 </button> &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm">
-                                    <i class="icon-trash"></i>
-                                </button>
-                            </td>
+
+                                <template v-if="categoria.condicion">
+                                    <button type="button" class="btn btn-danger btn-sm" @click="desactivarCategoria(categoria.id)">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </template>
+
+                                <template v-else>
+                                    <button type="button" class="btn btn-info btn-sm" @click="activarCategoria(categoria.id)">
+                                        <i class="icon-ok"></i>
+                                    </button>
+                                </template>                            </td>
                             <td v-text="categoria.nombre"></td>
                             <td v-text="categoria.descripcion"></td>
                             <td>
@@ -131,29 +139,7 @@
             <!-- /.modal-dialog -->
         </div>
         <!--Fin del modal-->
-        <!-- Inicio del modal Eliminar -->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-danger" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Eliminar Categoría</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Estas seguro de eliminar la categoría?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- Fin del modal Eliminar -->
+
     </main>
 </template>
 
@@ -265,6 +251,36 @@
                             }
                         }
                     }
+                }
+            },
+            desactivarCategoria(id){
+                var r = confirm("Desea la eliminacion el registro!");
+                if (r == true) {
+                    let me = this;
+                    axios.put('/categoria/desactivar', {
+                        'id': id
+                    })
+                        .then(function (response) {
+                            me.listarCategoria();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
+            activarCategoria(id){
+                var r = confirm("Desea activar el regitro");
+                if (r == true) {
+                    let me = this;
+                    axios.put('/categoria/activar', {
+                        'id': id
+                    })
+                        .then(function (response) {
+                            me.listarCategoria();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
             },
             validarCategoria(){
