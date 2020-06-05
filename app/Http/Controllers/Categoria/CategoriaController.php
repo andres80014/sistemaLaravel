@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Categoria;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Categoria;
@@ -10,9 +10,24 @@ use SebastianBergmann\CodeCoverage\TestFixture\C;
 class CategoriaController extends Controller
 {
     public function index(Request $request){
-        if(!$request->ajax()) return redirect('/');
-        $categorias = Categoria::all();
-        return $categorias;
+        //if(!$request->ajax()) return redirect('/');
+        //$categorias = Categoria::all();
+        $categorias = Categoria::paginate(3);
+        //$categorias = DB::table('categories')->paginate(3);
+
+
+        //return $categorias;
+        return [
+            'pagination'=>[
+                'total'        => $categorias->total(),
+                'current_page' => $categorias->currentPage(),
+                'per_page'     => $categorias->perPage(),
+                'last_page'    => $categorias->lastPage(),
+                'from'         => $categorias->firstItem(),
+                'to'           => $categorias->lastItem(),
+            ],
+            'categorias' => $categorias
+        ];
     }
 
     public function show($id){
