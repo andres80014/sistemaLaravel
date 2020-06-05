@@ -10,9 +10,18 @@ use SebastianBergmann\CodeCoverage\TestFixture\C;
 class CategoriaController extends Controller
 {
     public function index(Request $request){
+        $buscar  = $request->buscar;
+        $criterio  = $request->criterio;
+
+        if($buscar == ''){
+            $categorias = Categoria::orderBy('id','desc')->paginate(3);
+        }
+        else{
+            $categorias = Categoria::where($criterio, 'like', '%'. $buscar .'%')->orderBy('id','desc')->paginate(3);
+        }
         //if(!$request->ajax()) return redirect('/');
         //$categorias = Categoria::all();
-        $categorias = Categoria::paginate(3);
+
         //$categorias = DB::table('categories')->paginate(3);
 
 
