@@ -9,7 +9,8 @@ use SebastianBergmann\CodeCoverage\TestFixture\C;
 
 class CategoriaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        if(!$request->ajax()) return redirect('/');
         $categorias = Categoria::all();
         return $categorias;
     }
