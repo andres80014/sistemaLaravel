@@ -13,4 +13,9 @@ class Categoria extends Model
         'descripcion',
         'condicion'
     ];
+
+    public function articulos()
+    {
+        return $this->hasMany('App\Articulo','id','idcategoria');
+    }
 }

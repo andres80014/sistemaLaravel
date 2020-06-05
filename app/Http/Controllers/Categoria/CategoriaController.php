@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Categoria;
+use App\Http\Resources\CategoriaResource;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class CategoriaController extends Controller
         $criterio  = $request->criterio;
 
         if($buscar == ''){
-            $categorias = Categoria::orderBy('id','desc')->paginate(3);
+            $categorias = Categoria::orderBy('id','desc')->orderBy('id','desc')->paginate(3);
         }
         else{
             $categorias = Categoria::where($criterio, 'like', '%'. $buscar .'%')->orderBy('id','desc')->paginate(3);
@@ -37,6 +38,9 @@ class CategoriaController extends Controller
             ],
             'categorias' => $categorias
         ];
+
+        //return (CategoriaResource::collection($categorias));
+
     }
 
     public function show($id){
