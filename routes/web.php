@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 Route::get('/categoria','Categoria\CategoriaController@index');
 Route::get('/categoria/{id}','Categoria\CategoriaController@show');
+Route::get('/selectCategoria','Categoria\CategoriaController@selectCategoria');
 Route::post('/categoria','Categoria\CategoriaController@store');
 Route::put('/categoria/actualizar','Categoria\CategoriaController@update');
 Route::put('/categoria/desactivar','Categoria\CategoriaController@desactivar');

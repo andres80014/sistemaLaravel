@@ -74,4 +74,10 @@ class CategoriaController extends Controller
         $categoria->condicion = '1';
         $categoria->save();
     }
+
+    public function selectCategoria(){
+       $categorias = Categoria::where('condicion','=','1')
+                              ->select ('id','nombre')->orderBy('nombre','desc')->get();
+       return $categorias;
+    }
 }
