@@ -300,8 +300,12 @@
 
                 let me = this;
                 axios.post('/articulo', {
-                    'nombre': this.nombre,
-                    'descripcion': this.descripcion
+                    'nombre'       : this.nombre,
+                    'descripcion'  : this.descripcion,
+                    'idcategoria'  : this.idcategoria,
+                    'codigo'       : this.codigo,
+                    'precio_venta' : this.precio_venta,
+                    'stock'        :this.stock
                 })
                     .then(function (response) {
                         me.cerrarModal();
@@ -339,10 +343,14 @@
                             case 'registrar':
                             {
                                 this.modal=1;
-                                this.nombre ='';
-                                this.descripcion ='';
                                 this.tituloModal = 'Registrar Articulo';
                                 this.tipoAccion  = 1;
+                                this.nombre ='';
+                                this.descripcion ='';
+                                this.idcategoria = 0;
+                                this.codigo = '';
+                                this.precio_venta = 0;
+                                this.stock = 0;
                                 break;
                             }
                             case 'actualizar':
@@ -351,6 +359,10 @@
                                 this.modal=1;
                                 this.nombre =data.nombre;
                                 this.descripcion =data.descripcion;
+                                this.idcategoria = data.idcategoria;
+                                this.codigo = data.codigo;
+                                this.precio_venta = data.precio_venta;
+                                this.stock = data.stock;
                                 this.tituloModal = 'Actualizar Articulo';
                                 this.tipoAccion  = 2;
                             }
@@ -395,18 +407,32 @@
                 if(!this.nombre){
                     this.arrayErroresArticulo.push("El nombre del articulo no puede ser vacio");
                 }
+                if(this.idcategoria==0){
+                    this.arrayErroresArticulo.push("Debe seleccionar categoria");
+                }
+                if(!this.precio_venta){
+                    this.arrayErroresArticulo.push("El precio del producto debe ser numerico y diferente de vacio");
+                }
+                if(!this.stock){
+                    this.arrayErroresArticulo.push("El stock del producto debe ser numerico y diferente de vacio");
+                }
 
                 if(this.arrayErroresArticulo.length){
                     this.errorArticulo = 1;
                 }
                 return this.errorArticulo;
-
             },
             cerrarModal() {
                 this.modal=0;
                 this.tituloModal = '';
                 this.nombre = '';
                 this.descripcion = '';
+                this.idcategoria = 0;
+                this.nombre_categoria = '';
+                this.codigo = '';
+                this.precio_venta = 0;
+                this.stock = 0;
+                this.errorArticulo = 0;
             }
         },
         mounted() {
