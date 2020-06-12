@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Articulo;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ArticuloResource;
 use Illuminate\Http\Request;
 use App\Articulo;
 class ArticuloController extends Controller
@@ -60,7 +61,8 @@ class ArticuloController extends Controller
     public function show($id)
     {
         $articulo = Articulo::findOrFail($id);
-        return $articulo;
+
+        return new ArticuloResource($articulo);
     }
     public function activar(Request $request){
         $articulo = Articulo::findOrFail($request->id);

@@ -283,7 +283,7 @@
                 axios.get('/articulo/'+this.articuloId)
                     .then(function (response) {
                         // handle success
-                        me.arrayArticulo = [response.data];
+                        me.arrayArticulo = response.data;
                     })
                     .catch(function (error) {
                         // handle error
@@ -321,9 +321,13 @@
                 }
                 let me = this;
                 axios.put('/articulo/actualizar', {
-                    'nombre': this.nombre,
-                    'descripcion': this.descripcion,
-                    'id' : this.articuloId
+                    'nombre'       : this.nombre,
+                    'descripcion'  : this.descripcion,
+                    'id'           : this.articuloId,
+                    'idcategoria'  : this.idcategoria,
+                    'codigo'       : this.codigo,
+                    'precio_venta' : this.precio_venta,
+                    'stock'        :this.stock
                 })
                     .then(function (response) {
                         me.cerrarModal();

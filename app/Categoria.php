@@ -16,6 +16,6 @@ class Categoria extends Model
 
     public function articulos()
     {
-        return $this->hasMany('App\Articulo','id','idcategoria');
+        return $this->hasMany('App\Articulo','idcategoria','id');
     }
 }

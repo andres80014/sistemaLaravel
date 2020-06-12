@@ -2183,7 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.get('/articulo/' + this.articuloId).then(function (response) {
         // handle success
-        me.arrayArticulo = [response.data];
+        me.arrayArticulo = response.data;
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -2219,7 +2219,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.put('/articulo/actualizar', {
         'nombre': this.nombre,
         'descripcion': this.descripcion,
-        'id': this.articuloId
+        'id': this.articuloId,
+        'idcategoria': this.idcategoria,
+        'codigo': this.codigo,
+        'precio_venta': this.precio_venta,
+        'stock': this.stock
       }).then(function (response) {
         me.cerrarModal();
         me.listarArticuloId();
