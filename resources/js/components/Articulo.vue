@@ -57,9 +57,11 @@
                                     <button type="button" class="btn btn-info btn-sm" @click="activarArticulo(articulo.id)">
                                         <i class="icon-ok"></i>
                                     </button>
-                                </template>                            </td>
-                            <td v-text="articulo.nombre"></td>
+                                </template>
+                            </td>
+
                             <td v-text="articulo.codigo"></td>
+                            <td v-text="articulo.nombre"></td>
                             <td v-text="articulo.nombre_categoria"></td>
 
                             <td v-text="articulo.precio_venta"></td>
@@ -121,6 +123,8 @@
                                 <label class="col-md-3 form-control-label">Codigo</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="codigo" class="form-control" placeholder="Codigo de barras">
+                                    <barcode :value="codigo" :options="{ format: 'EAN-13'}"></barcode>
+                                    Generando codigo
                                 </div>
                             </div>
 
@@ -175,6 +179,7 @@
 </template>
 
 <script>
+    import VueBarcode from 'vue-barcode';
     export default {
         data(){
             return{
@@ -206,6 +211,9 @@
                 criterio : 'nombre',
                 buscar   : '',
             }
+        },
+        components: {
+            'barcode': VueBarcode
         },
         computed:{
             isActived(){

@@ -25,6 +25,7 @@
         "yargs": "^15.3.1"
     },
     "dependencies": {
-        "sweetalert2": "^9.14.0"
+        "sweetalert2": "^9.14.0",
+        "vue-barcode": "^1.2.0"
     }
 }
