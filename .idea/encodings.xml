@@ -14,6 +14,7 @@
     <file url="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_04_150557_create_categories_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_05_170303_create_articulo_table.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database/migrations/2020_06_12_141034_create_personas_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/js/components/Articulo.vue" charset="UTF-8" />
