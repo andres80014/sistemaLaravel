@@ -37,3 +37,9 @@ Route::get('/cliente','Cliente\ClienteController@index');
 Route::get('/cliente/{id}','Cliente\ClienteController@show');
 Route::post('/cliente','Cliente\ClienteController@store');
 Route::put('/cliente/actualizar','Cliente\ClienteController@update');
+
+
+Route::get('/proveedor','Proveedor\ProveedorController@index');
+Route::get('/proveedor/{id}','Proveedor\ProveedorController@show');
+Route::post('/proveedor','Proveedor\ProveedorController@store');
+Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
