@@ -43,3 +43,6 @@ Route::get('/proveedor','Proveedor\ProveedorController@index');
 Route::get('/proveedor/{id}','Proveedor\ProveedorController@show');
 Route::post('/proveedor','Proveedor\ProveedorController@store');
 Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
+
+
+Route::get('/rol','Rol\RolController@index');
