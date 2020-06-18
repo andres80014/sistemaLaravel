@@ -20,4 +20,9 @@
     <template v-if="menu==4">
         <proveedor></proveedor>
     </template>
+
+
+    <template v-if="menu==8">
+        <rol></rol>
+    </template>
 @endsection
