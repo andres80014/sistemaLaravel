@@ -90,9 +90,9 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre Empresa</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de  la persona">
+                                    <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de  la empresa">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -123,6 +123,20 @@
                                 <label class="col-md-3 form-control-label" for="text-input">Email</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="email" class="form-control" placeholder="Email de  la persona">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Contacto</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="contacto" class="form-control" placeholder="Contacto del  proveedor">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Numero Contacto</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="telefono_contacto" class="form-control" placeholder="Numero contacto">
                                 </div>
                             </div>
                             <div v-show="errorPersona" class="form-group row div-error">
@@ -253,13 +267,15 @@
                 }
 
                 let me = this;
-                axios.post('/cliente', {
+                axios.post('/proveedor', {
                     'nombre': this.nombre,
                     'tipo_documento' : this.tipo_documento,
                     'num_documento'  : this.num_documento,
                     'direccion'      : this.direccion,
                     'telefono'       : this.telefono,
                     'email'          : this.email,
+                    'contacto'       : this.contacto,
+                    'telefono_contacto' : this.telefono_contacto
                 })
                     .then(function (response) {
                         me.cerrarModal();
@@ -274,13 +290,15 @@
                     return;
                 }
                 let me = this;
-                axios.put('/cliente/actualizar', {
+                axios.put('/proveedor/actualizar', {
                     'nombre': this.nombre,
                     'tipo_documento' : this.tipo_documento,
                     'num_documento'  : this.num_documento,
                     'direccion'      : this.direccion,
                     'telefono'       : this.telefono,
                     'email'          : this.email,
+                    'contacto'       : this.contacto,
+                    'telefono_contacto' : this.telefono_contacto,
                     'id' : this.personaId
                 })
                     .then(function (response) {
@@ -301,26 +319,30 @@
                             {
                                 this.modal=1;
                                 this.nombre ='';
-                                this.tipo_documento = '';
+                                this.tipo_documento = 'CEDULA';
                                 this.num_documento  = '';
                                 this.direccion      = '';
                                 this.telefono       = '';
                                 this.email          = '';
-                                this.tituloModal = 'Registrar Persona';
+                                this.contacto       = '';
+                                this.telefono_contacto = '';
+                                this.tituloModal = 'Registrar Proveedor';
                                 this.tipoAccion  = 1;
                                 break;
                             }
                             case 'actualizar':
                             {
-                                this.personaId = data.id;
-                                this.modal=1;
-                                this.nombre =data.nombre;
-                                this.tipo_documento = data.tipo_documento;
-                                this.num_documento  = data.num_documento;
-                                this.direccion      = data.direccion;
-                                this.telefono       = data.telefono;
-                                this.email          = data.email;
-                                this.tituloModal = 'Actualizar Persona';
+                                this.personaId         = data.id;
+                                this.modal             = 1;
+                                this.nombre            = data.nombre;
+                                this.tipo_documento    = data.tipo_documento;
+                                this.num_documento     = data.num_documento;
+                                this.direccion         = data.direccion;
+                                this.telefono          = data.telefono;
+                                this.email             = data.email;
+                                this.contacto          = data.contacto;
+                                this.telefono_contacto = data.telefono_contacto;
+                                this.tituloModal = 'Actualizar Proveedor';
                                 this.tipoAccion  = 2;
                             }
                         }
@@ -349,6 +371,8 @@
                 this.direccion      = '';
                 this.telefono       = '';
                 this.email          = '';
+                this.contacto       = '';
+                this.telefono_contacto = '';
             }
         },
         mounted() {

@@ -3222,6 +3222,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3321,13 +3335,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.post('/cliente', {
+      axios.post('/proveedor', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
         'direccion': this.direccion,
         'telefono': this.telefono,
-        'email': this.email
+        'email': this.email,
+        'contacto': this.contacto,
+        'telefono_contacto': this.telefono_contacto
       }).then(function (response) {
         me.cerrarModal();
         me.listarPersona(1, '', 'nombre');
@@ -3341,13 +3357,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.put('/cliente/actualizar', {
+      axios.put('/proveedor/actualizar', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
         'direccion': this.direccion,
         'telefono': this.telefono,
         'email': this.email,
+        'contacto': this.contacto,
+        'telefono_contacto': this.telefono_contacto,
         'id': this.personaId
       }).then(function (response) {
         me.cerrarModal();
@@ -3367,12 +3385,14 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   this.modal = 1;
                   this.nombre = '';
-                  this.tipo_documento = '';
+                  this.tipo_documento = 'CEDULA';
                   this.num_documento = '';
                   this.direccion = '';
                   this.telefono = '';
                   this.email = '';
-                  this.tituloModal = 'Registrar Persona';
+                  this.contacto = '';
+                  this.telefono_contacto = '';
+                  this.tituloModal = 'Registrar Proveedor';
                   this.tipoAccion = 1;
                   break;
                 }
@@ -3387,7 +3407,9 @@ __webpack_require__.r(__webpack_exports__);
                   this.direccion = data.direccion;
                   this.telefono = data.telefono;
                   this.email = data.email;
-                  this.tituloModal = 'Actualizar Persona';
+                  this.contacto = data.contacto;
+                  this.telefono_contacto = data.telefono_contacto;
+                  this.tituloModal = 'Actualizar Proveedor';
                   this.tipoAccion = 2;
                 }
             }
@@ -3417,6 +3439,8 @@ __webpack_require__.r(__webpack_exports__);
       this.direccion = '';
       this.telefono = '';
       this.email = '';
+      this.contacto = '';
+      this.telefono_contacto = '';
     }
   },
   mounted: function mounted() {
@@ -46062,7 +46086,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [_vm._v("Nombre Empresa")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -46078,7 +46102,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Nombre de  la persona"
+                            placeholder: "Nombre de  la empresa"
                           },
                           domProps: { value: _vm.nombre },
                           on: {
@@ -46277,6 +46301,82 @@ var render = function() {
                                 return
                               }
                               _vm.email = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Contacto")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.contacto,
+                              expression: "contacto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Contacto del  proveedor"
+                          },
+                          domProps: { value: _vm.contacto },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.contacto = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Numero Contacto")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.telefono_contacto,
+                              expression: "telefono_contacto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Numero contacto"
+                          },
+                          domProps: { value: _vm.telefono_contacto },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.telefono_contacto = $event.target.value
                             }
                           }
                         })
