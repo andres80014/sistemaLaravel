@@ -24,5 +24,6 @@
     <file url="file://$PROJECT_DIR$/resources/views/pantilla.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/plantilla/sidebar.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/web.php" charset="UTF-8" />
+    <file url="file://D:/sites/front-hw/resources/js/src/router.js" charset="UTF-8" />
   </component>
 </project>
