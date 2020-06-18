@@ -16,26 +16,26 @@ class ProveedorController extends Controller
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $proveedor = Proveedor::join('personas','proveedores.id','=','personas.id')
+            $personas = Proveedor::join('personas','proveedores.id','=','personas.id')
                 ->select('personas.id','personas.nombre','personas.tipo_documento','personas.num_documento','personas.direccion',
                          'personas.telefono','personas.email','proveedores.contacto','proveedores.telefono_contacto')
                 ->orderBy('personas.id', 'desc')->paginate(3);
         } else {
-            $proveedor = Proveedor::join('personas','proveedores.id','=','personas.id')
+            $personas = Proveedor::join('personas','proveedores.id','=','personas.id')
                 ->select('personas.id','personas.nombre','personas.tipo_documento','personas.num_documento','personas.direccion',
                     'personas.telefono','personas.email','proveedores.contacto','proveedores.telefono_contacto')
-                ->where('personas'.$criterio, 'like', '%' . $buscar . '%')->orderBy('personas.id', 'desc')->paginate(3);
+                ->where('personas.'.$criterio, 'like', '%' . $buscar . '%')->orderBy('personas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
-                'total' => $proveedor->total(),
-                'current_page' => $proveedor->currentPage(),
-                'per_page' => $proveedor->perPage(),
-                'last_page' => $proveedor->lastPage(),
-                'from' => $proveedor->firstItem(),
-                'to' => $proveedor->lastItem(),
+                'total' => $personas->total(),
+                'current_page' => $personas->currentPage(),
+                'per_page' => $personas->perPage(),
+                'last_page' => $personas->lastPage(),
+                'from' => $personas->firstItem(),
+                'to' => $personas->lastItem(),
             ],
-            '$proveedor' => $proveedor
+            'personas' => $personas
         ];
     }
 

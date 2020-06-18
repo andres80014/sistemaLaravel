@@ -13,7 +13,11 @@
     </template>
 
     <template v-if="menu==6">
-        <cliente><cliente>
+        <cliente></cliente>
     </template>
 
+
+    <template v-if="menu==4">
+        <proveedor></proveedor>
+    </template>
 @endsection
