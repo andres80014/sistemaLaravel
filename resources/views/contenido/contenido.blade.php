@@ -25,4 +25,9 @@
     <template v-if="menu==8">
         <rol></rol>
     </template>
+
+
+    <template v-if="menu==7">
+        <usuario></usuario>
+    </template>
 @endsection
