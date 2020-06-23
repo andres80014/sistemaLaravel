@@ -44,7 +44,6 @@ Route::get('/proveedor/{id}','Proveedor\ProveedorController@show');
 Route::post('/proveedor','Proveedor\ProveedorController@store');
 Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
 
-
 Route::get('/rol','Rol\RolController@index');
 Route::get('/selectRol','Rol\RolController@selectRol');
 
@@ -54,3 +53,7 @@ Route::post('/user','User\UserController@store');
 Route::put('/user/actualizar','User\UserController@update');
 Route::put('/user/desactivar','User\UserController@desactivar');
 Route::put('/user/activar','User\UserController@activar');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

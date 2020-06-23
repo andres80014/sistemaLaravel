@@ -32,6 +32,8 @@
     <file url="file://$PROJECT_DIR$/resources/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/js/components/Articulo.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/js/components/Categoria.vue" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/auth/contenido.blade.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/auth/login.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/contenido/contenido.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/pantilla.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/plantilla/sidebar.blade.php" charset="UTF-8" />
