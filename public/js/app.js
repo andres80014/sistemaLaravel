@@ -3932,7 +3932,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.put('/proveedor/actualizar', {
+      axios.put('/user/actualizar', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
@@ -4000,7 +4000,19 @@ __webpack_require__.r(__webpack_exports__);
       this.arrayErroresPersona = [];
 
       if (!this.nombre) {
-        this.arrayErroresPersona.push("El nombre de la persona no puede ser vacio");
+        this.arrayErroresPersona.push("El nombre del usuario no puede ser vacio");
+      }
+
+      if (!this.usuario) {
+        this.arrayErroresPersona.push("El usuario no puede ser vacio");
+      }
+
+      if (!this.password) {
+        this.arrayErroresPersona.push("El password del usuario no puede ser vacio");
+      }
+
+      if (this.idrol === 0) {
+        this.arrayErroresPersona.push("Seleccione un tipo de rol para usuarios");
       }
 
       if (this.arrayErroresPersona.length) {
@@ -47818,7 +47830,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre Empresa")]
+                        [_vm._v("Nombre")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [

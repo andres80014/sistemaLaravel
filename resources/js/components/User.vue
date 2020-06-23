@@ -92,7 +92,7 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre Empresa</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control" placeholder="Nombre">
                                 </div>
@@ -323,7 +323,7 @@
                     return;
                 }
                 let me = this;
-                axios.put('/proveedor/actualizar', {
+                axios.put('/user/actualizar', {
                     'nombre': this.nombre,
                     'tipo_documento' : this.tipo_documento,
                     'num_documento'  : this.num_documento,
@@ -333,7 +333,7 @@
                     'usuario'        : this.usuario,
                     'password'       : this.password,
                     'idrol'          : this.idrol,
-                    'id' : this.personaId
+                    'id'             : this.personaId
                 })
                     .then(function (response) {
                         me.cerrarModal();
@@ -390,7 +390,16 @@
                 this.errorPersona = 0;
                 this.arrayErroresPersona = [];
                 if(!this.nombre){
-                    this.arrayErroresPersona.push("El nombre de la persona no puede ser vacio");
+                    this.arrayErroresPersona.push("El nombre del usuario no puede ser vacio");
+                }
+                if(!this.usuario){
+                    this.arrayErroresPersona.push("El usuario no puede ser vacio");
+                }
+                if(!this.password){
+                    this.arrayErroresPersona.push("El password del usuario no puede ser vacio");
+                }
+                if(this.idrol===0){
+                    this.arrayErroresPersona.push("Seleccione un tipo de rol para usuarios");
                 }
 
                 if(this.arrayErroresPersona.length){

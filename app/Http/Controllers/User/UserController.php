@@ -65,7 +65,7 @@ class UserController extends Controller
             $usuario->usuario   = $request->usuario;
             $usuario->password  = bcrypt($request->password);
             $usuario->condicion = 1;
-            $usuario->rol       = $request->idrol;
+            $usuario->idrol       = $request->idrol;
             $usuario->save();
             DB::commit();
         }
@@ -94,7 +94,7 @@ class UserController extends Controller
             $usuario->usuario = $request->usuario;
             $usuario->password = bcrypt($request->password);
             $usuario->condicion = 1;
-            $usuario->rol      = $request->idrol;
+            $usuario->idrol      = $request->idrol;
             $usuario->save();
 
             DB::commit();
