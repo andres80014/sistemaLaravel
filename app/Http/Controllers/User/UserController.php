@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UsuarioResource;
 use Illuminate\Http\Request;
 use App\User;
 use App\Persona;
@@ -44,7 +45,7 @@ class UserController extends Controller
     public function show($id)
     {
         $usuario = User::findOrFail($id);
-        return $usuario;
+        return new UsuarioResource($usuario);
     }
 
     public function store(Request $request)

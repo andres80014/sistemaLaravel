@@ -3796,6 +3796,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3884,7 +3906,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.get('/user/' + this.personaId).then(function (response) {
         // handle success
-        me.arrayPersona = [response.data];
+        me.arrayPersona = response.data;
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -3902,6 +3924,36 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       }).then(function () {// always executed
       });
+    },
+    desactivarUsuario: function desactivarUsuario(id) {
+      this.personaId = id;
+      var r = confirm("Desea la eliminacion del usuario!");
+
+      if (r == true) {
+        var me = this;
+        axios.put('/user/desactivar', {
+          'id': id
+        }).then(function (response) {
+          me.listarpersonaId();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
+    activarUsuario: function activarUsuario(id) {
+      this.personaId = id;
+      var r = confirm("Desea activar el usuario");
+
+      if (r == true) {
+        var me = this;
+        axios.put('/user/activar', {
+          'id': id
+        }).then(function (response) {
+          me.listarpersonaId();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
     },
     registrarPersona: function registrarPersona() {
       if (this.validarPersona()) {
@@ -47622,26 +47674,61 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.arrayPersona, function(persona) {
                   return _c("tr", { key: persona.id }, [
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning btn-sm",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.abrirModal(
-                                "persona",
-                                "actualizar",
-                                persona
-                              )
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning btn-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.abrirModal(
+                                  "persona",
+                                  "actualizar",
+                                  persona
+                                )
+                              }
                             }
-                          }
-                        },
-                        [_c("i", { staticClass: "icon-pencil" })]
-                      ),
-                      _vm._v("  \n                        ")
-                    ]),
+                          },
+                          [_c("i", { staticClass: "icon-pencil" })]
+                        ),
+                        _vm._v("  \n\n                            "),
+                        persona.condicion
+                          ? [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.desactivarUsuario(persona.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-trash" })]
+                              )
+                            ]
+                          : [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activarUsuario(persona.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-ok" })]
+                              )
+                            ]
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(persona.nombre) }
@@ -47671,7 +47758,23 @@ var render = function() {
                       domProps: { textContent: _vm._s(persona.usuario) }
                     }),
                     _vm._v(" "),
-                    _c("td", { domProps: { textContent: _vm._s(persona.rol) } })
+                    _c("td", {
+                      domProps: { textContent: _vm._s(persona.rol) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      persona.condicion
+                        ? _c("div", [
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Activo")
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v("Desactivado")
+                            ])
+                          ])
+                    ])
                   ])
                 }),
                 0
@@ -48295,7 +48398,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Usuario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Rol")])
+        _c("th", [_vm._v("Rol")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
       ])
     ])
   }

@@ -40,6 +40,8 @@
                             <th>Email</th>
                             <th>Usuario</th>
                             <th>Rol</th>
+                            <th>Opciones</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +51,18 @@
                                 <button type="button" @click="abrirModal('persona','actualizar',persona)" class="btn btn-warning btn-sm">
                                     <i class="icon-pencil"></i>
                                 </button> &nbsp;
+
+                                <template v-if="persona.condicion">
+                                    <button type="button" class="btn btn-danger btn-sm" @click="desactivarUsuario(persona.id)">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </template>
+
+                                <template v-else>
+                                    <button type="button" class="btn btn-info btn-sm" @click="activarUsuario(persona.id)">
+                                        <i class="icon-ok"></i>
+                                    </button>
+                                </template>
                             </td>
                             <td v-text="persona.nombre"></td>
                             <td v-text="persona.tipo_documento"></td>
@@ -58,6 +72,14 @@
                             <td v-text="persona.email"></td>
                             <td v-text="persona.usuario"></td>
                             <td v-text="persona.rol"></td>
+                            <td>
+                                <div v-if="persona.condicion">
+                                    <span class="badge badge-success">Activo</span>
+                                </div>
+                                <div v-else>
+                                    <span class="badge badge-danger">Desactivado</span>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -266,7 +288,7 @@
                 axios.get('/user/'+this.personaId)
                     .then(function (response) {
                         // handle success
-                        me.arrayPersona = [response.data];
+                        me.arrayPersona = response.data;
                     })
                     .catch(function (error) {
                         // handle error
@@ -292,6 +314,38 @@
                     .then(function () {
                         // always executed
                     });
+            },
+            desactivarUsuario(id){
+                this.personaId = id;
+                var r = confirm("Desea la eliminacion del usuario!");
+                if (r == true) {
+                    let me = this;
+                    axios.put('/user/desactivar', {
+                        'id': id
+                    })
+                        .then(function (response) {
+                            me.listarpersonaId();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
+            activarUsuario(id){
+                this.personaId = id;
+                var r = confirm("Desea activar el usuario");
+                if (r == true) {
+                    let me = this;
+                    axios.put('/user/activar', {
+                        'id': id
+                    })
+                        .then(function (response) {
+                            me.listarpersonaId();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
             },
             registrarPersona(){
                 if(this.validarPersona()){
