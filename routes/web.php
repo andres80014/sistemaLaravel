@@ -46,3 +46,11 @@ Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
 
 
 Route::get('/rol','Rol\RolController@index');
+
+
+Route::get('/user','User\UserController@index');
+Route::get('/user/{id}','User\UserController@show');
+Route::post('/user','User\UserController@store');
+Route::put('/user/actualizar','User\UserController@update');
+Route::put('/user/desactivar','User\UserController@desactivar');
+Route::put('/user/activar','User\UserController@activar');
