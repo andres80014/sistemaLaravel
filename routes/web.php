@@ -46,7 +46,7 @@ Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
 
 
 Route::get('/rol','Rol\RolController@index');
-
+Route::get('/selectRol','Rol\RolController@selectRol');
 
 Route::get('/user','User\UserController@index');
 Route::get('/user/{id}','User\UserController@show');

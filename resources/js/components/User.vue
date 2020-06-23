@@ -129,25 +129,29 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Contacto</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="contacto" class="form-control" placeholder="Contacto del  proveedor">
+                                    <input type="text" v-model="usuario" class="form-control" placeholder="Usuario">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Numero Contacto</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Password</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="telefono_contacto" class="form-control" placeholder="Numero contacto">
+                                    <input type="password" v-model="password" class="form-control" placeholder="Password">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">}usuario</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Rol</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="usuario" class="form-control" placeholder="Usuario sistema">
+                                    <select class="form-control" v-model="idrol">
+                                        <option value="0">Seleccione</option>
+                                        <option v-for="rol in arrayRol" :key="rol.id" :value="rol.id" v-text="rol.nombre"></option>
+                                    </select>
                                 </div>
                             </div>
+
                             <div v-show="errorPersona" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in arrayErroresPersona" :key="error" v-text="error">
@@ -191,6 +195,7 @@
                 tipoAccion : 0,
                 errorPersona :0,
                 arrayErroresPersona :[],
+                arrayRol : [],
                 pagination:{
                     'total'        : 0,
                     'current_page' : 0,
@@ -271,6 +276,23 @@
                         // always executed
                     });
             },
+
+            selectRol(){
+                let me = this;
+                axios.get('/selectRol')
+                    .then(function (response) {
+                        // handle success
+                        var respuesta     = response.data;
+                        me.arrayRol = respuesta.roles;
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            },
             registrarPersona(){
                 if(this.validarPersona()){
                     return;
@@ -323,6 +345,7 @@
             },
             abrirModal(modelo,accion,data = [])
             {
+                this.selectRol();
                 switch (modelo) {
                     case "persona":
                     {
@@ -338,7 +361,7 @@
                                 this.email          = '';
                                 this.usuario        = '';
                                 this.password       = '';
-                                this.idrol          = '';
+                                this.idrol          = 0;
                                 this.tituloModal    = 'Registrar Usuario';
                                 this.tipoAccion  = 1;
                                 break;
@@ -385,8 +408,11 @@
                 this.direccion      = '';
                 this.telefono       = '';
                 this.email          = '';
-                this.contacto       = '';
-                this.telefono_contacto = '';
+                this.usuario       = '';
+                this.password = '';
+                this.idrol = 0;
+
+
             }
         },
         mounted() {
