@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/main', function () {
     return view('contenido/contenido');
-});
+})->name('main');
 Route::get('/categoria','Categoria\CategoriaController@index');
 Route::get('/categoria/{id}','Categoria\CategoriaController@show');
 Route::get('/selectCategoria','Categoria\CategoriaController@selectCategoria');
@@ -54,6 +54,7 @@ Route::put('/user/actualizar','User\UserController@update');
 Route::put('/user/desactivar','User\UserController@desactivar');
 Route::put('/user/activar','User\UserController@activar');
 
-Auth::routes();
+Route::get('/','Auth\LoginController@showLoginForm');
+Route::post('/login','Auth\LoginController@login')->name('login');
 
 Route::get('/home', 'HomeController@index')->name('home');
