@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/.env.example" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Articulo.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Categoria.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/DetalleIngreso.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Articulo/ArticuloController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Categoria/CategoriaController.php" charset="UTF-8" />
@@ -19,6 +20,7 @@
     <file url="file://$PROJECT_DIR$/app/Http/Resources/ArticuloResource.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Resources/CategoriaResource.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Resources/UsuarioResource.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Ingreso.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Persona.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Proveedor.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php" charset="UTF-8" />
