@@ -97,6 +97,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/user/actualizar','User\UserController@update');
         Route::put('/user/desactivar','User\UserController@desactivar');
         Route::put('/user/activar','User\UserController@activar');
+
+        Route::get('/ingreso','Ingreso\IngresoController@index');
+        Route::post('/ingreso','Ingreso\IngresoController@store');
+        Route::put('/ingreso/desactivar','Ingreso\IngresoController@desactivar');
     });
 });
 
