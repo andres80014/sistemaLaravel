@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbbc1de0-a95f-40dc-9d8b-9e4520a77557" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Ingreso.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DetalleIngreso.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DetalleIngreso.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ingreso/IngresoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ingreso/IngresoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/contenido/contenido.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contenido/contenido.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,13 +137,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/plantilla" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sistema\resources\js\components" />
       <recent name="C:\xampp\htdocs\sistema\resources\views\plantilla" />
       <recent name="C:\xampp\htdocs\sistema\app\Http\Resources" />
-      <recent name="C:\xampp\htdocs\sistema\resources\js\components" />
     </key>
   </component>
   <component name="RunManager">
@@ -169,7 +171,8 @@
       <workItem from="1591977274746" duration="8173000" />
       <workItem from="1592511051509" duration="40607000" />
       <workItem from="1593021790095" duration="4189000" />
-      <workItem from="1593620443949" duration="9697000" />
+      <workItem from="1593620443949" duration="10088000" />
+      <workItem from="1593710465653" duration="1809000" />
     </task>
     <servers />
   </component>
