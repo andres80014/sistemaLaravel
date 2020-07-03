@@ -139,8 +139,9 @@
                                 <div class="form-group">
                                     <label>Articulo</label>
                                     <div class="form-inline">
-                                        <input type="text" v-model="idarticulo" placeholder="Ingrese Articulo">
-                                        <button class="btn btn-primary">...</button>
+                                        <input type="text" v-model="codigo" placeholder="Ingrese Articulo" @keyup.enter="buscarArticulo">
+                                        <button class="btn btn-primary" @onclick="buscarArticulo">...</button>
+                                        <input type="text" readonly class="form-control" v-model="articulo">
                                     </div>
 
                                 </div>
@@ -262,6 +263,8 @@
         data(){
             return{
                 idarticulo : 0,
+                codigo     :'',
+                articulo   : '',
                 ingresoId : 0,
                 idproveedor : 0,
                 tipo_comprobante : 'Factura',
@@ -271,10 +274,11 @@
                 impuesto          : 0.19,
                 total             : 0.0,
                 precio            : 0,
-                cantidad          : '',
+                cantidad          : 0,
                 arrayIngreso      :[],
                 arrayDetalle      :[],
                 arrayProveedor    :[],
+                arrayArticulo     :[],
                 listado :1,
                 modal : 0,
                 tituloModal :'',
@@ -332,10 +336,28 @@
                 this.pagination.current_page = page;
                 me.listarIngreso(page,buscar,criterio);
             },
-
+            buscarArticulo(){
+                let me=this;
+                var url= '/articulo/buscarArticulo?filtro=' + me.codigo;
+                    axios.get(url).then(function (response) {
+                    let respuesta = response.data;
+                    me.arrayArticulo=respuesta.articulos;
+                    if(me.arrayArticulo.length>0){
+                        me.articulo = me.arrayArticulo[0]['nombre'];
+                        me.idarticulo = me.arrayArticulo[0]['id'];
+                    }
+                    else
+                    {
+                        me.articulo = "No se encontraron articulos";
+                        me.idarticulo = 0;
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             selectProveedor(){
                 let me=this;
-
                 var url= '/proveedor/selectProveedor';
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;

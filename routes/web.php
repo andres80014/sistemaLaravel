@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('main');
 
     Route::get('/proveedor/selectProveedor','Proveedor\ProveedorController@selectProveedor');
+    Route::get('/articulo/buscarArticulo','Articulo\ArticuloController@buscarArticulo');
+
 
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
