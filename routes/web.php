@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
         return view('contenido/contenido');
     })->name('main');
 
+    Route::get('/proveedor/selectProveedor','Proveedor\ProveedorController@selectProveedor');
+
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
         Route::get('/categoria/{id}','Categoria\CategoriaController@show');
@@ -82,6 +84,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/proveedor/{id}','Proveedor\ProveedorController@show');
         Route::post('/proveedor','Proveedor\ProveedorController@store');
         Route::put('/proveedor/actualizar','Proveedor\ProveedorController@update');
+        Route::get('/proveedor/select','Proveedor\ProveedorController@index');
 
         Route::get('/cliente','Cliente\ClienteController@index');
         Route::get('/cliente/{id}','Cliente\ClienteController@show');

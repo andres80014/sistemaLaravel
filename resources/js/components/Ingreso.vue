@@ -96,8 +96,9 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label for="">Proveedor(*)</label>
-                                    <select class="form-control">
-
+                                    <select v-model="idproveedor" class="form-control">
+                                        <option value="0">Seleccione</option>
+                                        <option v-for="proveedor in arrayProveedor" :key="proveedor.id" :value="proveedor.id" v-text="proveedor.nombre"></option>
                                     </select>
                                 </div>
                             </div>
@@ -256,9 +257,11 @@
 </template>
 
 <script>
+    import vSelect from 'vue-select';
     export default {
         data(){
             return{
+                idarticulo : 0,
                 ingresoId : 0,
                 idproveedor : 0,
                 tipo_comprobante : 'Factura',
@@ -267,9 +270,11 @@
                 fecha_hora        : '',
                 impuesto          : 0.19,
                 total             : 0.0,
+                precio            : 0,
+                cantidad          : '',
                 arrayIngreso      :[],
                 arrayDetalle      :[],
-
+                arrayProveedor    :[],
                 listado :1,
                 modal : 0,
                 tituloModal :'',
@@ -289,6 +294,9 @@
                 criterio : 'num_comprobante',
                 buscar   : '',
             }
+        },
+        components:{
+            vSelect
         },
         computed:{
             isActived(){
@@ -323,6 +331,26 @@
                 let me = this;
                 this.pagination.current_page = page;
                 me.listarIngreso(page,buscar,criterio);
+            },
+
+            selectProveedor(){
+                let me=this;
+
+                var url= '/proveedor/selectProveedor';
+                axios.get(url).then(function (response) {
+                    let respuesta = response.data;
+                    me.arrayProveedor=respuesta.proveedores;
+                })
+                .catch(function (error) {
+                        console.log(error);
+                });
+
+
+            },
+            getDatosProveedor(val1){
+                let me = this;
+                //me.loading = true;
+                me.idproveedor = val1.id;
             },
             listarIngreso(page,buscar,criterio){
                 let me = this;
@@ -543,7 +571,9 @@
             }
         },
         mounted() {
+            let me = this;
             this.listarIngreso(1,this.buscar,this.criterio);
+            me.selectProveedor();
         }
     }
 </script>

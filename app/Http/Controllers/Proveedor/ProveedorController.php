@@ -95,4 +95,17 @@ class ProveedorController extends Controller
             DB::rollBack();
         }
     }
+
+    public function selectProveedor(Request $request){
+
+        $filtro = $request->filtro;
+
+        $proveedores = Proveedor::join('personas','personas.id','=','proveedores.id')
+                       ->where('personas.nombre','like','%'. $filtro. '%')
+                       ->orWhere('personas.num_documento','like','%'. $filtro. '%')
+                       ->select('proveedores.id','personas.nombre')
+                       ->orderBy('nombre','asc')
+                       ->get();
+        return ['proveedores'=>$proveedores];
+    }
 }

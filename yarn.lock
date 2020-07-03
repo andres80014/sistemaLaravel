@@ -3950,6 +3950,11 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+jsbarcode@^3.5.8:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/jsbarcode/-/jsbarcode-3.11.0.tgz#20623e008b101ef45d0cce9c8022cdf49be28547"
+  integrity sha512-/ozCd7wsa+VIHo9sUc03HneVEQrH7cVWfJolUT/WOW1m8mJ2e3iYZje6C9X3LFHdczlesqFHRpxLtbVsNtjyow==
+
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
@@ -6860,6 +6865,13 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vue-barcode@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-barcode/-/vue-barcode-1.2.0.tgz#e118c38c12a77da9be03e612c60ff6832c9a3a25"
+  integrity sha512-fYY0d04VxBoNTxho+VKMXKHyfB9/o/xKLmChb0j23otaKbCRUE0tcfLKtBMLw0apsW16LeutX1EUfvy7kDt/5g==
+  dependencies:
+    jsbarcode "^3.5.8"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
@@ -6875,6 +6887,11 @@ vue-loader@^15.4.2:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-select@^3.10.5:
+  version "3.10.5"
+  resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.10.5.tgz#2c4c3d5fdedbdc348eab581de16168c1e8d08448"
+  integrity sha512-32kJNHE9FqV2RzuIfwAYHny40+EltZjf86Jf4cIHc0QUy2/yAr0PM7cET1MBJe+puJdYrItGTwnmTC4I9gKLWg==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
