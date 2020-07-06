@@ -3602,6 +3602,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         // handle success
         var respuesta = response.data;
+        console.log(respuesta.ingresos.data);
         me.arrayIngreso = respuesta.ingresos.data;
         me.pagination = respuesta.pagination;
       })["catch"](function (error) {
@@ -3633,31 +3634,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {// always executed
       });
     },
-    desactivarUsuario: function desactivarUsuario(id) {
+    desactivarIngreso: function desactivarIngreso(id) {
       this.personaId = id;
-      var r = confirm("Desea la eliminacion del usuario!");
+      var r = confirm("Desea la anulacion del ingreso!");
 
       if (r == true) {
         var me = this;
-        axios.put('/user/desactivar', {
+        axios.put('/ingreso/desactivar', {
           'id': id
         }).then(function (response) {
-          me.listarpersonaId();
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      }
-    },
-    activarUsuario: function activarUsuario(id) {
-      this.personaId = id;
-      var r = confirm("Desea activar el usuario");
-
-      if (r == true) {
-        var me = this;
-        axios.put('/user/activar', {
-          'id': id
-        }).then(function (response) {
-          me.listarpersonaId();
+          me.listarIngreso(1, '', 'num_comprobante');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -47445,7 +47431,7 @@ var render = function() {
                                   _vm._v(
                                     "  \n\n                                    "
                                   ),
-                                  (ingreso.estado = "Registrado")
+                                  ingreso.estado == "Registrado"
                                     ? [
                                         _c(
                                           "button",
@@ -47455,7 +47441,7 @@ var render = function() {
                                             attrs: { type: "button" },
                                             on: {
                                               click: function($event) {
-                                                return _vm.desactivarUsuario(
+                                                return _vm.desactivarIngreso(
                                                   ingreso.id
                                                 )
                                               }

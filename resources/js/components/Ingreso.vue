@@ -53,8 +53,8 @@
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
 
-                                        <template v-if="ingreso.estado = 'Registrado'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarUsuario(ingreso.id)">
+                                        <template v-if="ingreso.estado == 'Registrado'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarIngreso(ingreso.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
@@ -541,6 +541,7 @@
                     .then(function (response) {
                         // handle success
                         var respuesta     = response.data;
+                        console.log(respuesta.ingresos.data);
                         me.arrayIngreso = respuesta.ingresos.data;
                         me.pagination     = respuesta.pagination;
                     })
@@ -584,32 +585,16 @@
                         // always executed
                     });
             },
-            desactivarUsuario(id){
+            desactivarIngreso(id){
                 this.personaId = id;
-                var r = confirm("Desea la eliminacion del usuario!");
+                var r = confirm("Desea la anulacion del ingreso!");
                 if (r == true) {
                     let me = this;
-                    axios.put('/user/desactivar', {
+                    axios.put('/ingreso/desactivar', {
                         'id': id
                     })
                         .then(function (response) {
-                            me.listarpersonaId();
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            },
-            activarUsuario(id){
-                this.personaId = id;
-                var r = confirm("Desea activar el usuario");
-                if (r == true) {
-                    let me = this;
-                    axios.put('/user/activar', {
-                        'id': id
-                    })
-                        .then(function (response) {
-                            me.listarpersonaId();
+                            me.listarIngreso(1,'','num_comprobante');
                         })
                         .catch(function (error) {
                             console.log(error);
