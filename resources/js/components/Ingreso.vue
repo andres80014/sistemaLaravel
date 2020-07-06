@@ -208,17 +208,17 @@
 
                                     <tr style="background-color:#2eadd3;">
                                         <th colspan="4" align="right">Total Parcial:</th>
-                                        <th>$ 4</th>
+                                        <th>$ {{ totalParcial = (total - impuesto)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
                                         <th colspan="4" align="right">Total Impuesto:</th>
-                                        <th>$ 4</th>
+                                        <th>$ {{ totalImpuesto = ((total * impuesto)/(1+impuesto)).toFixed(2)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
-                                        <th colspan="4" align="right">Total Neto:</th>
-                                        <th>$ 4</th>
+                                        <th colspan="4" align="left">Total Neto:</th>
+                                        <th>$ {{ total = (calcularTotal).toFixed(2) }}</th>
                                     </tr>
                                     </tbody>
                                     <tbody v-else>
@@ -283,8 +283,10 @@
                 serie_comprobante : '',
                 num_comprobante   : '',
                 fecha_hora        : '',
-                impuesto          : 0.19,
+                impuesto          : 0.18,
                 total             : 0.0,
+                totalImpuesto     : 0.0,
+                totalParcial      : 0.0,
                 precio            : 0,
                 cantidad          : 0,
                 arrayIngreso      :[],
@@ -297,6 +299,7 @@
                 tipoAccion : 0,
                 errorIngreso :0,
                 arrayErroresIngreso :[],
+
 
                 pagination:{
                     'total'        : 0,
@@ -340,7 +343,16 @@
                 }
                 return pagesArray;
 
+            },
+            calcularTotal: function()
+            {
+                var resultado = 0;
+                for(var i=0; i<this.arrayDetalle.length;i++){
+                    resultado = resultado+(parseInt(this.arrayDetalle[i]['precio']) * parseInt(this.arrayDetalle[i]['cantidad']));
+                }
+                return resultado;
             }
+
         },
         methods:{
             cambiarPagina(page,buscar,criterio){
