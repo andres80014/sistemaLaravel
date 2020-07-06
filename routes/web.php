@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/proveedor/selectProveedor','Proveedor\ProveedorController@selectProveedor');
     Route::get('/articulo/buscarArticulo','Articulo\ArticuloController@buscarArticulo');
+    Route::get('/articulo/listarArticulos','Articulo\ArticuloController@listarArticulos');
 
 
     Route::group(['middleware' => ['almacenero']], function () {

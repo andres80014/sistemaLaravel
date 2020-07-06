@@ -35,6 +35,23 @@ class ArticuloController extends Controller
             'articulos' => $articulos
         ];
     }
+    public function listarArticulos(Request $request){
+        $buscar  = $request->buscar;
+        $criterio  = $request->criterio;
+
+        if($buscar == ''){
+            $articulos = Articulo::join('categories','articulos.idcategoria', '=','categories.id')
+                ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categories.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+                ->orderBy('articulos.id','desc')->paginate(10);
+        }
+        else{
+            $articulos = Articulo::join('categories','articulos.idcategoria', '=','categories.id')
+                ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categories.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+                ->where('articulos.'.$criterio,'like','%'.$buscar.'%')
+                ->orderBy('articulos.id','desc')->paginate(10);
+        }
+         return ['articulos' => $articulos];
+    }
     public function buscarArticulo(Request $request){
         $filtro = $request->filtro;
 

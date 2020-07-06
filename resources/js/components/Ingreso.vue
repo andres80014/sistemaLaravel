@@ -142,10 +142,9 @@
                                     </label>
                                     <div class="form-inline">
                                         <input type="text" v-model="codigo" placeholder="Ingrese Articulo" @keyup.enter="buscarArticulo">
-                                        <button class="btn btn-primary" @onclick="buscarArticulo">...</button>
+                                        <button class="btn btn-primary" @click="abrirModal">...</button>
                                         <input type="text" readonly class="form-control" v-model="articulo">
                                     </div>
-
                                 </div>
                             </div>
 
@@ -253,7 +252,61 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <select class="form-control col-md-3"  v-model="criterioArticulo">
+                                        <option value="nombre">Nombre</option>
+                                        <option value="descripcion">Descripción</option>
+                                        <option value="codigo">Codigo</option>
+                                    </select>
+                                    <input type="text" @keyup.enter = "listarArticulo(buscarArticul,criterioArticulo)" v-model="buscarArticul" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" class="btn btn-primary" @click="listarArticulo(buscarArticul,criterioArticulo)"><i class="fa fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Opciones</th>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Categoria</th>
+                                    <th>Precio Venta</th>
+                                    <th>Stock</th>
+                                    <th>Estado</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr v-for="articulo in arrayArticulo" :key="articulo.id">
+                                    <td>
+                                        <button type="button" @click="agregarDetalleModal(articulo)" class="btn btn-success btn-sm">
+                                            <i class="icon-check"></i>
+                                        </button> &nbsp;
+                                    </td>
+
+                                    <td v-text="articulo.codigo"></td>
+                                    <td v-text="articulo.nombre"></td>
+                                    <td v-text="articulo.nombre_categoria"></td>
+
+                                    <td v-text="articulo.precio_venta"></td>
+                                    <td v-text="articulo.stock"></td>
+
+                                    <td>
+                                        <div v-if="articulo.condicion">
+                                            <span class="badge badge-success">Activo</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge badge-danger">Desactivado</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal()" class="btn btn-secondary">Cerrar</button>
@@ -299,6 +352,8 @@
                 tipoAccion : 0,
                 errorIngreso :0,
                 arrayErroresIngreso :[],
+                buscarArticul  : '',
+                criterioArticulo : 'nombre',
 
 
                 pagination:{
@@ -364,6 +419,28 @@
                 let me = this;
                 me.arrayDetalle.splice(index,1);
             },
+
+            listarArticulo(buscar,criterio){
+                let me = this;
+                var url = '/articulo/listarArticulos?buscar=' + buscar + '&criterio=' + criterio;
+                axios.get(url)
+                    .then(function (response) {
+                        // handle success
+                        var respuesta     = response.data;
+                        me.arrayArticulo = respuesta.articulos.data;
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            },
+            agregarDetalleModal(data = []){
+
+            },
+
             agregarDetalle(){
                 let me = this;
                 if(me.idarticulo == 0 || me.cantidad ==0 || me.precio==0){
@@ -570,48 +647,15 @@
                         console.log(error);
                     });
             },
-            abrirModal(modelo,accion,data = [])
+            cerrarModal()
             {
-                this.selectRol();
-                switch (modelo) {
-                    case "persona":
-                    {
-                        switch (accion) {
-                            case 'registrar':
-                            {
-                                this.modal=1;
-                                this.nombre ='';
-                                this.tipo_documento = 'CEDULA';
-                                this.num_documento  = '';
-                                this.direccion      = '';
-                                this.telefono       = '';
-                                this.email          = '';
-                                this.usuario        = '';
-                                this.password       = '';
-                                this.idrol          = 0;
-                                this.tituloModal    = 'Registrar Usuario';
-                                this.tipoAccion  = 1;
-                                break;
-                            }
-                            case 'actualizar':
-                            {
-                                this.personaId         = data.id;
-                                this.modal             = 1;
-                                this.nombre            = data.nombre;
-                                this.tipo_documento    = data.tipo_documento;
-                                this.num_documento     = data.num_documento;
-                                this.direccion         = data.direccion;
-                                this.telefono          = data.telefono;
-                                this.email             = data.email;
-                                this.usuario           = data.usuario;
-                                this.password          = data.password;
-                                this.idrol             = data.idrol;
-                                this.tituloModal = 'Actualizar Usuario';
-                                this.tipoAccion  = 2;
-                            }
-                        }
-                    }
-                }
+                this.modal=0;
+            },
+
+            abrirModal()
+            {
+                this.modal=1;
+                this.tituloModal    = 'Seleccione articulos';
             },
             validarPersona(){
                 this.errorPersona = 0;
@@ -640,20 +684,6 @@
             },
             ocultarDetalle(){
                 this.listado = 1;
-            },
-            cerrarModal()
-            {
-                this.modal=0;
-                this.tituloModal = '';
-                this.nombre = '';
-                this.tipo_documento = '';
-                this.num_documento  = '';
-                this.direccion      = '';
-                this.telefono       = '';
-                this.email          = '';
-                this.usuario       = '';
-                this.password = '';
-                this.idrol = 0;
             }
         },
         mounted() {
