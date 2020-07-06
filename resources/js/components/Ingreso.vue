@@ -137,7 +137,9 @@
                         <div class="form-group row border">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Articulo</label>
+                                    <label>Articulo
+                                        <span style="color: red" v-show="idarticulo==0">(*Seleccione)</span>
+                                    </label>
                                     <div class="form-inline">
                                         <input type="text" v-model="codigo" placeholder="Ingrese Articulo" @keyup.enter="buscarArticulo">
                                         <button class="btn btn-primary" @onclick="buscarArticulo">...</button>
@@ -149,14 +151,18 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Precio</label>
+                                    <label>Precio
+                                        <span style="color: red" v-show="precio==0">(*Ingrese Precio)</span>
+                                    </label>
                                     <input type="number" value="0" class="form-control" v-model="precio" step="any">
                                 </div>
                             </div>
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Cantidad</label>
+                                    <label>Cantidad
+                                        <span style="color: red" v-show="cantidad==0">(*Cantidad)</span>
+                                    </label>
                                     <input type="number" v-model="cantidad" class="form-control">
                                 </div>
                             </div>
@@ -344,14 +350,40 @@
             },
             agregarDetalle(){
                 let me = this;
-                me.arrayDetalle.push({
-                    idarticulo : me.idarticulo,
-                    articulo   : me.articulo,
-                    cantidad   : me.cantidad,
-                    precio     : me.precio
-                });
-                me.codigo ='';
+                if(me.idarticulo == 0 || me.cantidad ==0 || me.precio==0){
+
+                }
+                else{
+                    if(me.encuentra(me.idarticulo)){
+                        alert("el Elemeneto ya se encuantra agregado");
+                    }
+                    else{
+                        me.arrayDetalle.push({
+                            idarticulo : me.idarticulo,
+                            articulo   : me.articulo,
+                            cantidad   : me.cantidad,
+                            precio     : me.precio
+                        });
+                        me.codigo ='';
+                        me.idarticulo = 0;
+                        me.articulo = '';
+                        me.cantidad = 0;
+                        me.precio = 0;
+                    }
+                }
             },
+            encuentra(id){
+                var sw = false;
+
+                for(var  i = 0; i<this.arrayDetalle.length;i++)
+                {
+                    if(this.arrayDetalle[i]['idarticulo'] == id){
+                        sw = true;
+                    }
+                }
+                return sw;
+            },
+
             buscarArticulo(){
                 let me=this;
                 var url= '/articulo/buscarArticulo?filtro=' + me.codigo;
