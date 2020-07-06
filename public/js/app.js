@@ -3398,6 +3398,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3655,25 +3663,34 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    registrarPersona: function registrarPersona() {
-      if (this.validarPersona()) {
+    registrarIngreso: function registrarIngreso() {
+      if (this.validarIngreso()) {
         return;
       }
 
       var me = this;
-      axios.post('/user', {
-        'nombre': this.nombre,
-        'tipo_documento': this.tipo_documento,
-        'num_documento': this.num_documento,
-        'direccion': this.direccion,
-        'telefono': this.telefono,
-        'email': this.email,
-        'usuario': this.usuario,
-        'password': this.password,
-        'idrol': this.idrol
+      axios.post('/ingreso', {
+        'idproveedor': this.idproveedor,
+        'tipo_comprobante': this.tipo_comprobante,
+        'serie_comprobante': this.serie_comprobante,
+        'num_comprobante': this.num_comprobante,
+        'impuesto': this.impuesto,
+        'total': this.total,
+        'data': this.arrayDetalle
       }).then(function (response) {
-        me.cerrarModal();
-        me.listarPersona(1, '', 'nombre');
+        me.listado = 1;
+        me.listarIngreso(1, '', 'num_comprobante');
+        me.idproveedor = 0;
+        me.tipo_comprobante = 'Factura';
+        me.serie_comprobante = '';
+        me.num_comprobante = '';
+        me.impuesto = 0.18;
+        me.total = 0.0;
+        me.idarticulo = 0;
+        me.articulo = '';
+        me.cantidad = 0;
+        me.precio = 0;
+        me.arrayDetalle = [];
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3710,34 +3727,50 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = 1;
       this.tituloModal = 'Seleccione articulos';
     },
-    validarPersona: function validarPersona() {
-      this.errorPersona = 0;
-      this.arrayErroresPersona = [];
+    validarIngreso: function validarIngreso() {
+      this.errorIngreso = 0;
+      this.arrayErroresIngreso = [];
 
-      if (!this.nombre) {
-        this.arrayErroresPersona.push("El nombre del usuario no puede ser vacio");
+      if (this.idproveedor == 0 || this.idproveedor == '') {
+        this.arrayErroresIngreso.push("Selecione un proveedor");
       }
 
-      if (!this.usuario) {
-        this.arrayErroresPersona.push("El usuario no puede ser vacio");
+      if (this.tipo_comprobante == 0) {
+        this.arrayErroresIngreso.push("Seleccione el tipo de comprobante");
       }
 
-      if (!this.password) {
-        this.arrayErroresPersona.push("El password del usuario no puede ser vacio");
+      if (!this.num_comprobante) {
+        this.arrayErroresIngreso.push("Digite el numero de comprobante");
       }
 
-      if (this.idrol === 0) {
-        this.arrayErroresPersona.push("Seleccione un tipo de rol para usuarios");
+      if (!this.impuesto) {
+        this.arrayErroresIngreso.push("Digite impuesto de compra");
       }
 
-      if (this.arrayErroresPersona.length) {
-        this.errorPersona = 1;
+      if (this.arrayDetalle.length <= 0) {
+        this.arrayErroresIngreso.push("Ingrese detalles");
       }
 
-      return this.errorPersona;
+      if (this.arrayErroresIngreso.length) {
+        this.errorIngreso = 1;
+      }
+
+      return this.errorIngreso;
     },
     mostrarDetalle: function mostrarDetalle() {
-      this.listado = 0;
+      var me = this;
+      me.listado = 0;
+      me.idproveedor = 0;
+      me.tipo_comprobante = 'Factura';
+      me.serie_comprobante = '';
+      me.num_comprobante = '';
+      me.impuesto = 0.18;
+      me.total = 0.0;
+      me.idarticulo = 0;
+      me.articulo = '';
+      me.cantidad = 0;
+      me.precio = 0;
+      me.arrayDetalle = [];
     },
     ocultarDetalle: function ocultarDetalle() {
       this.listado = 1;
@@ -47770,6 +47803,36 @@ var render = function() {
                           }
                         })
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorIngreso,
+                              expression: "errorIngreso"
+                            }
+                          ],
+                          staticClass: "form-group row div-error"
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "text-center text-error" },
+                            _vm._l(_vm.arrayErroresIngreso, function(error) {
+                              return _c("div", {
+                                key: error,
+                                domProps: { textContent: _vm._s(error) }
+                              })
+                            }),
+                            0
+                          )
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),

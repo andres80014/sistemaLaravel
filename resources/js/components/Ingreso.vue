@@ -133,6 +133,14 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-12">
+                                <div v-show="errorIngreso" class="form-group row div-error">
+                                    <div class="text-center text-error">
+                                        <div v-for="error in arrayErroresIngreso" :key="error" v-text="error">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group row border">
                             <div class="col-md-6">
@@ -608,26 +616,35 @@
                         });
                 }
             },
-            registrarPersona(){
-                if(this.validarPersona()){
+            registrarIngreso(){
+                if(this.validarIngreso()){
                     return;
                 }
 
                 let me = this;
-                axios.post('/user', {
-                    'nombre': this.nombre,
-                    'tipo_documento' : this.tipo_documento,
-                    'num_documento'  : this.num_documento,
-                    'direccion'      : this.direccion,
-                    'telefono'       : this.telefono,
-                    'email'          : this.email,
-                    'usuario'        : this.usuario,
-                    'password'       : this.password,
-                    'idrol'          : this.idrol
+                axios.post('/ingreso', {
+                    'idproveedor'       : this.idproveedor,
+                    'tipo_comprobante'  : this.tipo_comprobante,
+                    'serie_comprobante' : this.serie_comprobante,
+                    'num_comprobante'   : this.num_comprobante,
+                    'impuesto'          : this.impuesto,
+                    'total'             : this.total,
+                    'data'              : this.arrayDetalle
                 })
                     .then(function (response) {
-                        me.cerrarModal();
-                        me.listarPersona(1,'','nombre');
+                        me.listado = 1;
+                        me.listarIngreso(1,'','num_comprobante');
+                        me.idproveedor= 0;
+                        me.tipo_comprobante  = 'Factura';
+                        me.serie_comprobante = '';
+                        me.num_comprobante   = '';
+                        me.impuesto          = 0.18;
+                        me.total             = 0.0;
+                        me.idarticulo        = 0;
+                        me.articulo          = '';
+                        me.cantidad          = 0;
+                        me.precio            = 0;
+                        me.arrayDetalle = [];
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -658,41 +675,53 @@
                         console.log(error);
                     });
             },
-            cerrarModal()
-            {
+            cerrarModal(){
                 this.modal=0;
             },
 
-            abrirModal()
-            {
+            abrirModal(){
                 this.arrayArticulo = [];
                 this.modal=1;
                 this.tituloModal    = 'Seleccione articulos';
             },
-            validarPersona(){
-                this.errorPersona = 0;
-                this.arrayErroresPersona = [];
-                if(!this.nombre){
-                    this.arrayErroresPersona.push("El nombre del usuario no puede ser vacio");
+            validarIngreso(){
+                this.errorIngreso = 0;
+                this.arrayErroresIngreso = [];
+                if(this.idproveedor == 0 || this.idproveedor==''){
+                    this.arrayErroresIngreso.push("Selecione un proveedor");
                 }
-                if(!this.usuario){
-                    this.arrayErroresPersona.push("El usuario no puede ser vacio");
+                if(this.tipo_comprobante == 0){
+                    this.arrayErroresIngreso.push("Seleccione el tipo de comprobante");
                 }
-                if(!this.password){
-                    this.arrayErroresPersona.push("El password del usuario no puede ser vacio");
+                if(!this.num_comprobante){
+                    this.arrayErroresIngreso.push("Digite el numero de comprobante");
                 }
-                if(this.idrol===0){
-                    this.arrayErroresPersona.push("Seleccione un tipo de rol para usuarios");
+                if(!this.impuesto){
+                    this.arrayErroresIngreso.push("Digite impuesto de compra");
                 }
-
-                if(this.arrayErroresPersona.length){
-                    this.errorPersona = 1;
+                if(this.arrayDetalle.length<=0){
+                    this.arrayErroresIngreso.push("Ingrese detalles");
                 }
-                return this.errorPersona;
+                if(this.arrayErroresIngreso.length){
+                    this.errorIngreso = 1;
+                }
+                return this.errorIngreso;
             },
 
             mostrarDetalle(){
-                this.listado = 0;
+                let me = this;
+                me.listado = 0;
+                me.idproveedor= 0;
+                me.tipo_comprobante  = 'Factura';
+                me.serie_comprobante = '';
+                me.num_comprobante   = '';
+                me.impuesto          = 0.18;
+                me.total             = 0.0;
+                me.idarticulo        = 0;
+                me.articulo          = '';
+                me.cantidad          = 0;
+                me.precio            = 0;
+                me.arrayDetalle = [];
             },
             ocultarDetalle(){
                 this.listado = 1;
