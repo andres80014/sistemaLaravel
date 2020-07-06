@@ -438,7 +438,18 @@
                     });
             },
             agregarDetalleModal(data = []){
-
+                let me = this;
+                if(me.encuentra(data['id'])){
+                    alert("el Elemeneto ya se encuantra agregado");
+                }
+                else{
+                    me.arrayDetalle.push({
+                        idarticulo : data['id'],
+                        articulo   : data['nombre'],
+                        cantidad   : 1,
+                        precio     : 1
+                    });
+                }
             },
 
             agregarDetalle(){
@@ -654,6 +665,7 @@
 
             abrirModal()
             {
+                this.arrayArticulo = [];
                 this.modal=1;
                 this.tituloModal    = 'Seleccione articulos';
             },
