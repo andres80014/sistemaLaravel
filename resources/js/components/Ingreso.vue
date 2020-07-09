@@ -13,7 +13,7 @@
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
-                <template v-if="listado">
+                <template v-if="listado==1">
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -49,7 +49,7 @@
 
                                 <tr v-for="ingreso in arrayIngreso" :key="ingreso.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('ingreso','actualizar',ingreso)" class="btn btn-success btn-sm">
+                                        <button type="button" @click="verIngreso(ingreso.id)" class="btn btn-success btn-sm">
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
 
@@ -90,7 +90,7 @@
                     </div>
                 </template>
 
-                <template v-else>
+                <template v-else-if="listado ==0">
                     <div class="card-body">
                         <div class="form-group row border">
                             <div class="col-md-9">
@@ -245,6 +245,105 @@
                         </div>
                     </div>
                 </template>
+                <!-- ver detlle ingreso-->
+                <template v-else-if="listado == 2">
+                    <div class="card-body">
+                        <div class="form-group row border">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="">Proveedor</label>
+                                    <p v-text="proveedor"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="">Impuesto(*)</label>
+                                <p v-text="impuesto"></p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tipo Comprobante(*)</label>
+                                    <p v-text="tipo_comprobante"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Serie Comprobante</label>
+                                    <p v-text="serie_comprobante"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Numero Comprobante(*)</label>
+                                    <p v-text="num_comprobante"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row border">
+                            <div class="table-responsive col-md-12">
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th>Articulo</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody v-if="arrayDetalle.length">
+                                    <tr v-for="detalle in arrayDetalle" :key="detalle.id">
+                                        <td v-text="detalle.articulo">
+                                        </td>
+
+                                        <td v-text="detalle.precio">
+                                        </td>
+
+                                        <td v-text="detalle.cantidad">
+                                        </td>
+
+                                        <td>
+                                            {{detalle.precio*detalle.cantidad}}
+                                        </td>
+                                    </tr>
+
+                                    <tr style="background-color:#2eadd3;">
+                                        <th colspan="4" align="right">Total Parcial:</th>
+                                        <th>$ {{ totalParcial = (total - impuesto)}}</th>
+                                    </tr>
+
+                                    <tr style="background-color: #2eadd3;">
+                                        <th colspan="4" align="right">Total Impuesto:</th>
+                                        <th>$ {{ totalImpuesto = ((total * impuesto)/(1+impuesto)).toFixed(2)}}</th>
+                                    </tr>
+
+                                    <tr style="background-color: #2eadd3;">
+                                        <th colspan="4" align="left">Total Neto:</th>
+                                        <th>$ {{ total = (calcularTotal).toFixed(2) }}</th>
+                                    </tr>
+                                    </tbody>
+                                    <tbody v-else>
+                                    <tr>
+                                        <th colspan="5">No hay elementos agregados</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-secondary" @click="ocultarDetalle()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <!-- fin ver detlle ingreso-->
+
+
 
             </div>
             <!-- Fin ejemplo de tabla Listado -->
@@ -362,6 +461,7 @@
                 arrayErroresIngreso :[],
                 buscarArticul  : '',
                 criterioArticulo : 'nombre',
+                proveedor : '',
 
 
                 pagination:{
@@ -459,7 +559,10 @@
                     });
                 }
             },
-
+            verIngreso(id){
+                let me = this;
+                me.listado = 2;
+            },
             agregarDetalle(){
                 let me = this;
                 if(me.idarticulo == 0 || me.cantidad ==0 || me.precio==0){
@@ -568,7 +671,6 @@
                         // always executed
                     });
             },
-
             selectRol(){
                 let me = this;
                 axios.get('/selectRol')
