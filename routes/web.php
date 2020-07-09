@@ -36,6 +36,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ingreso/obtenerDetalles','Ingreso\IngresoController@obtenerDetalles');
     Route::get('/ingreso/obtenerCabecera','Ingreso\IngresoController@obtenerCabecera');
 
+    Route::get('/venta','Venta\VentaController@index');
+    Route::post('/venta','Venta\VentaController@store');
+    Route::get('/venta/obtenerDetalles','Venta\VentaController@obtenerDetalles');
+    Route::get('/venta/obtenerCabecera','Venta\VentaController@obtenerCabecera');
+
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
         Route::get('/categoria/{id}','Categoria\CategoriaController@show');
