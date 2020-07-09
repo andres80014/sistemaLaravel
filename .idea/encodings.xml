@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/app/Articulo.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Categoria.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/DetalleIngreso.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/DetalleVenta.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Articulo/ArticuloController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Categoria/CategoriaController.php" charset="UTF-8" />
@@ -27,6 +28,7 @@
     <file url="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Rol.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/User.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Venta.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_04_150557_create_categories_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_05_170303_create_articulo_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_12_141034_create_personas_table.php" charset="UTF-8" />
