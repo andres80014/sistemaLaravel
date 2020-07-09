@@ -33,7 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/proveedor/selectProveedor','Proveedor\ProveedorController@selectProveedor');
     Route::get('/articulo/buscarArticulo','Articulo\ArticuloController@buscarArticulo');
     Route::get('/articulo/listarArticulos','Articulo\ArticuloController@listarArticulos');
-
+    Route::get('/ingreso/obtenerDetalles','Ingreso\IngresoController@obtenerDetalles');
+    Route::get('/ingreso/obtenerCabecera','Ingreso\IngresoController@obtenerCabecera');
 
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');

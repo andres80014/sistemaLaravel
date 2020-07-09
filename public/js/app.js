@@ -3633,7 +3633,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     verIngreso: function verIngreso(id) {
       var me = this;
-      me.listado = 2;
+      var arrayIngresoTem = [];
+      me.listado = 2; //obtener cabecera
+
+      var url = '/ingreso/obtenerCabecera?id=' + id;
+      axios.get(url).then(function (response) {
+        // handle success
+        var respuesta = response.data;
+        arrayIngresoTem = respuesta.ingreso.data;
+        me.proveedor = me.arrayIngreso[0]['proveedor'];
+        me.tipo_comprobante = me.arrayIngreso[0]['tipo_comprobante'];
+        me.serie_comprobante = me.arrayIngreso[0]['serie_comprobante'];
+        me.num_comprobante = me.arrayIngreso[0]['num_comprobante'];
+        me.impuesto = me.arrayIngreso[0]['impuesto'];
+        me.total = me.arrayIngreso[0]['total'];
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      }).then(function () {// always executed
+      }); //obtener detalles
+
+      var urldet = '/ingreso/obtenerDetalles?id=' + id;
+      axios.get(urldet).then(function (response) {
+        // handle success
+        var respuestadet = response.data;
+        me.arrayDetalle = respuestadet.detalles;
+        console.log(me.arrayDetalle);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      }).then(function () {// always executed
+      });
     },
     agregarDetalle: function agregarDetalle() {
       var me = this;
@@ -3706,7 +3736,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         // handle success
         var respuesta = response.data;
-        console.log(respuesta.ingresos.data);
         me.arrayIngreso = respuesta.ingresos.data;
         me.pagination = respuesta.pagination;
       })["catch"](function (error) {
@@ -48504,7 +48533,7 @@ var render = function() {
                                         "th",
                                         {
                                           attrs: {
-                                            colspan: "4",
+                                            colspan: "3",
                                             align: "right"
                                           }
                                         },
@@ -48535,7 +48564,7 @@ var render = function() {
                                         "th",
                                         {
                                           attrs: {
-                                            colspan: "4",
+                                            colspan: "3",
                                             align: "right"
                                           }
                                         },
@@ -48567,7 +48596,7 @@ var render = function() {
                                       _c(
                                         "th",
                                         {
-                                          attrs: { colspan: "4", align: "left" }
+                                          attrs: { colspan: "3", align: "left" }
                                         },
                                         [_vm._v("Total Neto:")]
                                       ),

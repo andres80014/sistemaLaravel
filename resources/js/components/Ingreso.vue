@@ -311,17 +311,17 @@
                                     </tr>
 
                                     <tr style="background-color:#2eadd3;">
-                                        <th colspan="4" align="right">Total Parcial:</th>
+                                        <th colspan="3" align="right">Total Parcial:</th>
                                         <th>$ {{ totalParcial = (total - impuesto)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
-                                        <th colspan="4" align="right">Total Impuesto:</th>
+                                        <th colspan="3" align="right">Total Impuesto:</th>
                                         <th>$ {{ totalImpuesto = ((total * impuesto)/(1+impuesto)).toFixed(2)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
-                                        <th colspan="4" align="left">Total Neto:</th>
+                                        <th colspan="3" align="left">Total Neto:</th>
                                         <th>$ {{ total = (calcularTotal).toFixed(2) }}</th>
                                     </tr>
                                     </tbody>
@@ -559,9 +559,50 @@
                     });
                 }
             },
+
             verIngreso(id){
                 let me = this;
+                var arrayIngresoTem = [];
+
                 me.listado = 2;
+                //obtener cabecera
+                var url = '/ingreso/obtenerCabecera?id=' + id;
+                axios.get(url)
+                    .then(function (response) {
+                        // handle success
+                        var respuesta     = response.data;
+                        arrayIngresoTem = respuesta.ingreso.data;
+                        me.proveedor = me.arrayIngreso[0]['proveedor'];
+                        me.tipo_comprobante = me.arrayIngreso[0]['tipo_comprobante'];
+                        me.serie_comprobante = me.arrayIngreso[0]['serie_comprobante'];
+                        me.num_comprobante   = me.arrayIngreso[0]['num_comprobante'];
+                        me.impuesto          = me.arrayIngreso[0]['impuesto'];
+                        me.total             = me.arrayIngreso[0]['total'];
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+                //obtener detalles
+
+                var urldet = '/ingreso/obtenerDetalles?id=' + id;
+                axios.get(urldet)
+                    .then(function (response) {
+                        // handle success
+                        var respuestadet     = response.data;
+                        me.arrayDetalle = respuestadet.detalles;
+                        console.log(me.arrayDetalle);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
             },
             agregarDetalle(){
                 let me = this;
@@ -644,7 +685,6 @@
                     .then(function (response) {
                         // handle success
                         var respuesta     = response.data;
-                        console.log(respuesta.ingresos.data);
                         me.arrayIngreso = respuesta.ingresos.data;
                         me.pagination     = respuesta.pagination;
                     })
