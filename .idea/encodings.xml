@@ -35,6 +35,8 @@
     <file url="file://$PROJECT_DIR$/database/migrations/2020_06_20_000000_create_users_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_07_01_170046_create_ingresos_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_07_01_170109_create_detalle_ingresos_table.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database/migrations/2020_07_09_150912_create_ventas_table.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database/migrations/2020_07_09_150927_create_detalle_ventas_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/js/app.js" charset="UTF-8" />
