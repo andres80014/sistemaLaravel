@@ -5606,10 +5606,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectCliente: function selectCliente() {
       var me = this;
-      var url = '/proveedor/selectProveedor';
+      var url = '/cliente/selectCliente';
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayCliente = respuesta.proveedores;
+        me.arrayCliente = respuesta.clientes;
       })["catch"](function (error) {
         console.log(error);
       });

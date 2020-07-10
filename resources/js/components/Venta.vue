@@ -678,10 +678,10 @@
             },
             selectCliente(){
                 let me=this;
-                var url= '/proveedor/selectProveedor';
+                var url= '/cliente/selectCliente';
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
-                    me.arrayCliente=respuesta.proveedores;
+                    me.arrayCliente=respuesta.clientes;
                 })
                 .catch(function (error) {
                         console.log(error);

@@ -57,4 +57,17 @@ class ClienteController extends Controller
         $persona->email          = $request->email;
         $persona->save();
     }
+
+    public function selectCliente(Request $request){
+
+        $filtro = $request->filtro;
+
+        $clientes = Persona:: where('personas.nombre','like','%'. $filtro. '%')
+            ->orWhere('personas.num_documento','like','%'. $filtro. '%')
+            ->select('personas.id','personas.nombre','num_documento')
+            ->orderBy('nombre','asc')
+            ->get();
+        return ['clientes'=>$clientes];
+
+    }
 }

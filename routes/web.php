@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/articulo/listarArticulos','Articulo\ArticuloController@listarArticulos');
     Route::get('/ingreso/obtenerDetalles','Ingreso\IngresoController@obtenerDetalles');
     Route::get('/ingreso/obtenerCabecera','Ingreso\IngresoController@obtenerCabecera');
+    Route::get('/cliente/selectCliente','Cliente\ClienteController@selectCliente');
 
     Route::get('/venta','Venta\VentaController@index');
     Route::post('/venta','Venta\VentaController@store');
