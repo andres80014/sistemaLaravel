@@ -95,10 +95,11 @@
                         <div class="form-group row border">
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <label for="">Proveedor(*)</label>
-                                    <select v-model="idproveedor" class="form-control">
+                                    <label for="">Cliente(*)</label>
+                                    <select v-model="idcliente" class="form-control">
                                         <option value="0">Seleccione</option>
-                                        <option v-for="proveedor in arrayProveedor" :key="proveedor.id" :value="proveedor.id" v-text="proveedor.nombre"></option>
+                                        <option v-for="cliente in arrayCliente" :key="cliente.id" :value="cliente.id"
+                                                v-text="cliente.nombre"></option>
                                     </select>
                                 </div>
                             </div>
@@ -134,16 +135,16 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div v-show="errorIngreso" class="form-group row div-error">
+                                <div v-show="errorVenta" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in arrayErroresIngreso" :key="error" v-text="error">
+                                        <div v-for="error in arrayErroresVenta" :key="error" v-text="error">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row border">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Articulo
                                         <span style="color: red" v-show="idarticulo==0">(*Seleccione)</span>
@@ -176,6 +177,13 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
+                                    <label>Descuento</label>
+                                    <input type="number" v-model="descuento" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
                                     <button class="btn btn-success form-control btnagregar" @click="agregarDetalle()"><i class="icon-plus"></i></button>
                                 </div>
                             </div>
@@ -189,6 +197,7 @@
                                         <th>Articulo</th>
                                         <th>Precio</th>
                                         <th>Cantidad</th>
+                                        <th>Descuento</th>
                                         <th>Subtotal</th>
                                     </tr>
                                     </thead>
@@ -203,19 +212,26 @@
                                         </td>
 
                                         <td>
-                                            <input type="number" value="3" class="form-control" v-model="detalle.precio">
+                                            <input type="number" class="form-control" v-model="detalle.precio">
                                         </td>
                                         <td>
-                                            <input type="number" value="2" class="form-control" v-model="detalle.cantidad">
+                                            <input type="number" class="form-control" v-model="detalle.cantidad">
                                         </td>
+
+                                        <td>
+                                            <input type="number"  class="form-control" v-model="detalle.descuento">
+                                        </td>
+
                                         <td>
                                             {{detalle.precio*detalle.cantidad}}
                                         </td>
+
+
                                     </tr>
 
                                     <tr style="background-color:#2eadd3;">
-                                        <th colspan="4" align="right">Total Parcial:</th>
-                                        <th>$ {{ totalParcial = (total - impuesto)}}</th>
+                                        <th colspan="5" align="right">Total Parcial:</th>
+                                        <th>$ {{ totalParcial = (total - impuesto).toFixed(2)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
@@ -230,7 +246,7 @@
                                     </tbody>
                                     <tbody v-else>
                                         <tr>
-                                            <th colspan="5">No hay elementos agregados</th>
+                                            <th colspan="6">No hay elementos agregados</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -240,7 +256,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-secondary" @click="ocultarDetalle()">Cerrar</button>
-                                <button type="button" class="btn btn-primary" @click="registrarIngreso()">Registrar Compra</button>
+                                <button type="button" class="btn btn-primary" @click="registrarVenta()">Registrar Venta</button>
                             </div>
                         </div>
                     </div>
@@ -452,7 +468,7 @@
                 cantidad          : 0,
                 arrayVenta      :[],
                 arrayDetalle      :[],
-                arrayProveedor    :[],
+                arrayCliente    :[],
                 arrayArticulo     :[],
                 listado :1,
                 modal : 0,
@@ -660,12 +676,12 @@
                         console.log(error);
                     });
             },
-            selectProveedor(){
+            selectCliente(){
                 let me=this;
                 var url= '/proveedor/selectProveedor';
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
-                    me.arrayProveedor=respuesta.proveedores;
+                    me.arrayCliente=respuesta.proveedores;
                 })
                 .catch(function (error) {
                         console.log(error);
@@ -857,7 +873,7 @@
         mounted() {
             let me = this;
             this.listarVenta(1,this.buscar,this.criterio);
-            me.selectProveedor();
+            me.selectCliente();
         }
     }
 </script>
