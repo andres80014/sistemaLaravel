@@ -171,6 +171,7 @@
                                     <label>Cantidad
                                         <span style="color: red" v-show="cantidad==0">(*Cantidad)</span>
                                     </label>
+
                                     <input type="number" v-model="cantidad" class="form-control">
                                 </div>
                             </div>
@@ -215,15 +216,17 @@
                                             <input type="number" class="form-control" v-model="detalle.precio">
                                         </td>
                                         <td>
+                                            <span style="color: red" v-show="detalle.cantidad>detalle.stock">Stock disponible : {{detalle.stock}} </span>
                                             <input type="number" class="form-control" v-model="detalle.cantidad">
                                         </td>
 
                                         <td>
+                                            <span style="color: red" v-show="detalle.descuento>(detalle.precio * detalle.cantidad)">Descuento superior </span>
                                             <input type="number"  class="form-control" v-model="detalle.descuento">
                                         </td>
 
                                         <td>
-                                            {{detalle.precio*detalle.cantidad}}
+                                            {{detalle.precio*detalle.cantidad-detalle.descuento}}
                                         </td>
 
 
@@ -231,16 +234,16 @@
 
                                     <tr style="background-color:#2eadd3;">
                                         <th colspan="5" align="right">Total Parcial:</th>
-                                        <th>$ {{ totalParcial = (total - impuesto).toFixed(2)}}</th>
+                                        <th>$ {{ totalParcial = (total - impuesto)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
-                                        <th colspan="4" align="right">Total Impuesto:</th>
+                                        <th colspan="5" align="right">Total Impuesto:</th>
                                         <th>$ {{ totalImpuesto = ((total * impuesto)/(1+impuesto)).toFixed(2)}}</th>
                                     </tr>
 
                                     <tr style="background-color: #2eadd3;">
-                                        <th colspan="4" align="left">Total Neto:</th>
+                                        <th colspan="5" align="left">Total Neto:</th>
                                         <th>$ {{ total = (calcularTotal).toFixed(2) }}</th>
                                     </tr>
                                     </tbody>
@@ -322,7 +325,7 @@
                                         </td>
 
                                         <td>
-                                            {{detalle.precio*detalle.cantidad}}
+                                            {{detalle.precio*detalle.cantidad-detalle.descuento}}
                                         </td>
                                     </tr>
 
@@ -528,7 +531,7 @@
             {
                 var resultado = 0;
                 for(var i=0; i<this.arrayDetalle.length;i++){
-                    resultado = resultado+(parseInt(this.arrayDetalle[i]['precio']) * parseInt(this.arrayDetalle[i]['cantidad']));
+                    resultado = resultado+(parseInt(this.arrayDetalle[i]['precio']) * parseInt(this.arrayDetalle[i]['cantidad'])-parseInt(this.arrayDetalle[i]['descuento']));
                 }
                 return resultado;
             }
@@ -572,7 +575,9 @@
                         idarticulo : data['id'],
                         articulo   : data['nombre'],
                         cantidad   : 1,
-                        precio     : 1
+                        precio     : data['precio_venta'],
+                        descuento  : 0,
+                        stock      : data['stock']
                     });
                 }
             },
@@ -631,17 +636,26 @@
                         alert("el Elemeneto ya se encuantra agregado");
                     }
                     else{
-                        me.arrayDetalle.push({
-                            idarticulo : me.idarticulo,
-                            articulo   : me.articulo,
-                            cantidad   : me.cantidad,
-                            precio     : me.precio
-                        });
-                        me.codigo ='';
-                        me.idarticulo = 0;
-                        me.articulo = '';
-                        me.cantidad = 0;
-                        me.precio = 0;
+                        if(me.cantidad > me.stock){
+                            alert("No hay stock dsponible ");
+                        }
+                        else{
+                            me.arrayDetalle.push({
+                                idarticulo : me.idarticulo,
+                                articulo   : me.articulo,
+                                cantidad   : me.cantidad,
+                                precio     : me.precio,
+                                descuento  : me.descuento,
+                                stock      : me.stock
+                            });
+                            me.codigo ='';
+                            me.idarticulo = 0;
+                            me.articulo = '';
+                            me.cantidad = 0;
+                            me.precio = 0;
+                            me.descuento = 0;
+                            me.stock     = 0;
+                        }
                     }
                 }
             },
