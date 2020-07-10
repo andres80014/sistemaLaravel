@@ -150,7 +150,7 @@
                                         <span style="color: red" v-show="idarticulo==0">(*Seleccione)</span>
                                     </label>
                                     <div class="form-inline">
-                                        <input type="text" v-model="codigo" placeholder="Ingrese Articulo" @keyup.enter="buscarArticulo">
+                                        <input type="text" v-model="codigo" placeholder="Ingrese Articulo" @keyup.enter="buscarArticuloVenta">
                                         <button class="btn btn-primary" @click="abrirModal">...</button>
                                         <input type="text" readonly class="form-control" v-model="articulo">
                                     </div>
@@ -450,6 +450,7 @@
     export default {
         data(){
             return{
+                stock      : 0,
                 idarticulo : 0,
                 codigo     :'',
                 articulo   : '',
@@ -546,7 +547,7 @@
 
             listarArticulo(buscar,criterio){
                 let me = this;
-                var url = '/articulo/listarArticulos?buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/articulo/listarArticulosStock?buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url)
                     .then(function (response) {
                         // handle success
@@ -656,15 +657,18 @@
                 return sw;
             },
 
-            buscarArticulo(){
+            buscarArticuloVenta(){
                 let me=this;
-                var url= '/articulo/buscarArticulo?filtro=' + me.codigo;
+                var url= '/articulo/buscarArticuloVenta?filtro=' + me.codigo;
                     axios.get(url).then(function (response) {
                     let respuesta = response.data;
                     me.arrayArticulo=respuesta.articulos;
+                    console.log(respuesta.articulos);
                     if(me.arrayArticulo.length>0){
                         me.articulo = me.arrayArticulo[0]['nombre'];
                         me.idarticulo = me.arrayArticulo[0]['id'];
+                        me.precio     = me.arrayArticulo[0]['precio_venta'];
+                        me.stock      = me.arrayArticulo[0]['stock'];
                     }
                     else
                     {

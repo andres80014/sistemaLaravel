@@ -32,7 +32,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/proveedor/selectProveedor','Proveedor\ProveedorController@selectProveedor');
     Route::get('/articulo/buscarArticulo','Articulo\ArticuloController@buscarArticulo');
+    Route::get('/articulo/buscarArticuloVenta','Articulo\ArticuloController@buscarArticuloVenta');
+
     Route::get('/articulo/listarArticulos','Articulo\ArticuloController@listarArticulos');
+    Route::get('/articulo/listarArticulosStock','Articulo\ArticuloController@listarArticulosStock');
+
+
     Route::get('/ingreso/obtenerDetalles','Ingreso\IngresoController@obtenerDetalles');
     Route::get('/ingreso/obtenerCabecera','Ingreso\IngresoController@obtenerCabecera');
     Route::get('/cliente/selectCliente','Cliente\ClienteController@selectCliente');

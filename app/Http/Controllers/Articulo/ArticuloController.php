@@ -52,6 +52,26 @@ class ArticuloController extends Controller
         }
          return ['articulos' => $articulos];
     }
+
+    public function listarArticulosStock(Request $request){
+        $buscar  = $request->buscar;
+        $criterio  = $request->criterio;
+
+        if($buscar == ''){
+            $articulos = Articulo::join('categories','articulos.idcategoria', '=','categories.id')
+                ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categories.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+                ->where('stock','>',0)
+                ->orderBy('articulos.id','desc')->paginate(10);
+        }
+        else{
+            $articulos = Articulo::join('categories','articulos.idcategoria', '=','categories.id')
+                ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categories.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+                ->where('articulos.'.$criterio,'like','%'.$buscar.'%')
+                ->where('stock','>',0)
+                ->orderBy('articulos.id','desc')->paginate(10);
+        }
+        return ['articulos' => $articulos];
+    }
     public function buscarArticulo(Request $request){
         $filtro = $request->filtro;
 
@@ -63,6 +83,20 @@ class ArticuloController extends Controller
 
         return ['articulos' => $articulos];
     }
+
+    public function buscarArticuloVenta(Request $request){
+        $filtro = $request->filtro;
+
+        $articulos = Articulo::where('codigo','=',$filtro)
+            ->select('id','nombre','precio_venta','stock')
+            ->where('stock','>',0)
+            ->orderBy('nombre','asc')
+            ->take(1)
+            ->get();
+
+        return ['articulos' => $articulos];
+    }
+
     public function store(Request $request){
         $articulo = new Articulo();
         $articulo->idcategoria  = $request->idcategoria;

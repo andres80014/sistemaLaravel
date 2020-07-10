@@ -5397,6 +5397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      stock: 0,
       idarticulo: 0,
       codigo: '',
       articulo: '',
@@ -5494,7 +5495,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     listarArticulo: function listarArticulo(buscar, criterio) {
       var me = this;
-      var url = '/articulo/listarArticulos?buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/articulo/listarArticulosStock?buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         // handle success
         var respuesta = response.data;
@@ -5586,16 +5587,19 @@ __webpack_require__.r(__webpack_exports__);
 
       return sw;
     },
-    buscarArticulo: function buscarArticulo() {
+    buscarArticuloVenta: function buscarArticuloVenta() {
       var me = this;
-      var url = '/articulo/buscarArticulo?filtro=' + me.codigo;
+      var url = '/articulo/buscarArticuloVenta?filtro=' + me.codigo;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulo = respuesta.articulos;
+        console.log(respuesta.articulos);
 
         if (me.arrayArticulo.length > 0) {
           me.articulo = me.arrayArticulo[0]['nombre'];
           me.idarticulo = me.arrayArticulo[0]['id'];
+          me.precio = me.arrayArticulo[0]['precio_venta'];
+          me.stock = me.arrayArticulo[0]['stock'];
         } else {
           me.articulo = "No se encontraron articulos";
           me.idarticulo = 0;
@@ -52543,7 +52547,7 @@ var render = function() {
                                 ) {
                                   return null
                                 }
-                                return _vm.buscarArticulo($event)
+                                return _vm.buscarArticuloVenta($event)
                               },
                               input: function($event) {
                                 if ($event.target.composing) {
