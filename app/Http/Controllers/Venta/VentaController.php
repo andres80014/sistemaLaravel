@@ -25,7 +25,7 @@ class VentaController extends Controller
                     'ventas.total','ventas.estado','personas.nombre as cliente','users.usuario')
                 ->orderBy('ventas.id', 'desc')->paginate(3);
         } else {
-            $ventas = Venta::join('personas','ventas.idproveedor','=','personas.id')
+            $ventas = Venta::join('personas','ventas.idcliente','=','personas.id')
                 ->join('users','ventas.idusuario','=','users.id')
                 ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante','ventas.num_comprobante',
                     'ventas.fecha_hora','ventas.impuesto',
