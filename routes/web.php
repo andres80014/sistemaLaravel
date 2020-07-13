@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/venta','Venta\VentaController@store');
     Route::get('/venta/obtenerDetalles','Venta\VentaController@obtenerDetalles');
     Route::get('/venta/obtenerCabecera','Venta\VentaController@obtenerCabecera');
+    Route::put('/venta/desactivar','Venta\VentaController@desactivar');
 
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');

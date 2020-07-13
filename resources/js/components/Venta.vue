@@ -766,16 +766,15 @@
                         // always executed
                     });
             },
-            desactivarIngreso(id){
-                this.personaId = id;
-                var r = confirm("Desea la anulacion del ingreso!");
+            desactivarVenta(id){
+                var r = confirm("Desea la anulacion de la venta!");
                 if (r == true) {
                     let me = this;
-                    axios.put('/ingreso/desactivar', {
+                    axios.put('/venta/desactivar', {
                         'id': id
                     })
                         .then(function (response) {
-                            me.listarIngreso(1,'','num_comprobante');
+                            me.listarVenta(1,'','num_comprobante');
                         })
                         .catch(function (error) {
                             console.log(error);

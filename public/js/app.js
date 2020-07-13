@@ -5676,16 +5676,15 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {// always executed
       });
     },
-    desactivarIngreso: function desactivarIngreso(id) {
-      this.personaId = id;
-      var r = confirm("Desea la anulacion del ingreso!");
+    desactivarVenta: function desactivarVenta(id) {
+      var r = confirm("Desea la anulacion de la venta!");
 
       if (r == true) {
         var me = this;
-        axios.put('/ingreso/desactivar', {
+        axios.put('/venta/desactivar', {
           'id': id
         }).then(function (response) {
-          me.listarIngreso(1, '', 'num_comprobante');
+          me.listarVenta(1, '', 'num_comprobante');
         })["catch"](function (error) {
           console.log(error);
         });
