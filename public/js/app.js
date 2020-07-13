@@ -5688,14 +5688,14 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    registrarIngreso: function registrarIngreso() {
-      if (this.validarIngreso()) {
+    registrarVenta: function registrarVenta() {
+      if (this.validarVenta()) {
         return;
       }
 
       var me = this;
-      axios.post('/ingreso', {
-        'idproveedor': this.idproveedor,
+      axios.post('/venta', {
+        'idcliente': this.idcliente,
         'tipo_comprobante': this.tipo_comprobante,
         'serie_comprobante': this.serie_comprobante,
         'num_comprobante': this.num_comprobante,
@@ -5704,8 +5704,8 @@ __webpack_require__.r(__webpack_exports__);
         'data': this.arrayDetalle
       }).then(function (response) {
         me.listado = 1;
-        me.listarIngreso(1, '', 'num_comprobante');
-        me.idproveedor = 0;
+        me.listarVenta(1, '', 'num_comprobante');
+        me.idcliente = 0;
         me.tipo_comprobante = 'Factura';
         me.serie_comprobante = '';
         me.num_comprobante = '';
@@ -5715,6 +5715,9 @@ __webpack_require__.r(__webpack_exports__);
         me.articulo = '';
         me.cantidad = 0;
         me.precio = 0;
+        me.descuento = 0;
+        me.stock = 0;
+        me.codigo = '';
         me.arrayDetalle = [];
       })["catch"](function (error) {
         console.log(error);
@@ -5752,35 +5755,43 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = 1;
       this.tituloModal = 'Seleccione articulos';
     },
-    validarIngreso: function validarIngreso() {
-      this.errorIngreso = 0;
-      this.arrayErroresIngreso = [];
+    validarVenta: function validarVenta() {
+      var me = this;
+      this.errorVenta = 0;
+      this.arrayErroresVenta = [];
+      var art;
+      me.arrayDetalle.map(function (x) {
+        if (x.cantidad > x.stock) {
+          art = x.articulo + "con stock insufuciente";
+          me.arrayErroresVenta.push(art);
+        }
+      });
 
-      if (this.idproveedor == 0 || this.idproveedor == '') {
-        this.arrayErroresIngreso.push("Selecione un proveedor");
+      if (me.idcliente == 0 || me.idcliente == '') {
+        me.arrayErroresVenta.push("Selecione un cliente");
       }
 
-      if (this.tipo_comprobante == 0) {
-        this.arrayErroresIngreso.push("Seleccione el tipo de comprobante");
+      if (me.tipo_comprobante == 0) {
+        me.arrayErroresVenta.push("Seleccione el tipo de comprobante");
       }
 
-      if (!this.num_comprobante) {
-        this.arrayErroresIngreso.push("Digite el numero de comprobante");
+      if (!me.num_comprobante) {
+        me.arrayErroresVenta.push("Digite el numero de comprobante");
       }
 
-      if (!this.impuesto) {
-        this.arrayErroresIngreso.push("Digite impuesto de compra");
+      if (!me.impuesto) {
+        me.arrayErroresVenta.push("Digite impuesto de compra");
       }
 
-      if (this.arrayDetalle.length <= 0) {
-        this.arrayErroresIngreso.push("Ingrese detalles");
+      if (me.arrayDetalle.length <= 0) {
+        me.arrayErroresVenta.push("Ingrese detalles");
       }
 
-      if (this.arrayErroresIngreso.length) {
-        this.errorIngreso = 1;
+      if (me.arrayErroresVenta.length) {
+        me.errorVenta = 1;
       }
 
-      return this.errorIngreso;
+      return me.errorVenta;
     },
     mostrarDetalle: function mostrarDetalle() {
       var me = this;
