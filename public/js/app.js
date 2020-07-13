@@ -5396,6 +5396,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5526,34 +5530,33 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    verIngreso: function verIngreso(id) {
+    verVenta: function verVenta(id) {
       var me = this;
-      var arrayIngresoTem = [];
+      var arrayVentaTem = [];
       me.listado = 2; //obtener cabecera
 
-      var url = '/ingreso/obtenerCabecera?id=' + id;
+      var url = '/venta/obtenerCabecera?id=' + id;
       axios.get(url).then(function (response) {
         // handle success
         var respuesta = response.data;
-        arrayIngresoTem = respuesta.ingreso.data;
-        me.proveedor = me.arrayIngreso[0]['proveedor'];
-        me.tipo_comprobante = me.arrayIngreso[0]['tipo_comprobante'];
-        me.serie_comprobante = me.arrayIngreso[0]['serie_comprobante'];
-        me.num_comprobante = me.arrayIngreso[0]['num_comprobante'];
-        me.impuesto = me.arrayIngreso[0]['impuesto'];
-        me.total = me.arrayIngreso[0]['total'];
+        arrayVentaTem = respuesta.venta;
+        me.cliente = arrayVentaTem[0]['cliente'];
+        me.tipo_comprobante = arrayVentaTem[0]['tipo_comprobante'];
+        me.serie_comprobante = arrayVentaTem[0]['serie_comprobante'];
+        me.num_comprobante = arrayVentaTem[0]['num_comprobante'];
+        me.impuesto = arrayVentaTem[0]['impuesto'];
+        me.total = arrayVentaTem[0]['total'];
       })["catch"](function (error) {
         // handle error
         console.log(error);
       }).then(function () {// always executed
       }); //obtener detalles
 
-      var urldet = '/ingreso/obtenerDetalles?id=' + id;
+      var urldet = '/venta/obtenerDetalles?id=' + id;
       axios.get(urldet).then(function (response) {
         // handle success
         var respuestadet = response.data;
         me.arrayDetalle = respuestadet.detalles;
-        console.log(me.arrayDetalle);
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -53091,11 +53094,11 @@ var render = function() {
                     _c("div", { staticClass: "col-md-9" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Proveedor")
+                          _vm._v("Cliente")
                         ]),
                         _vm._v(" "),
                         _c("p", {
-                          domProps: { textContent: _vm._s(_vm.proveedor) }
+                          domProps: { textContent: _vm._s(_vm.cliente) }
                         })
                       ])
                     ]),
@@ -53180,6 +53183,12 @@ var render = function() {
                                         }
                                       }),
                                       _vm._v(" "),
+                                      _c("td", {
+                                        domProps: {
+                                          textContent: _vm._s(detalle.descuento)
+                                        }
+                                      }),
+                                      _vm._v(" "),
                                       _c("td", [
                                         _vm._v(
                                           "\n                                        " +
@@ -53206,7 +53215,7 @@ var render = function() {
                                         "th",
                                         {
                                           attrs: {
-                                            colspan: "3",
+                                            colspan: "4",
                                             align: "right"
                                           }
                                         },
@@ -53237,7 +53246,7 @@ var render = function() {
                                         "th",
                                         {
                                           attrs: {
-                                            colspan: "3",
+                                            colspan: "4",
                                             align: "right"
                                           }
                                         },
@@ -53269,7 +53278,7 @@ var render = function() {
                                       _c(
                                         "th",
                                         {
-                                          attrs: { colspan: "3", align: "left" }
+                                          attrs: { colspan: "4", align: "left" }
                                         },
                                         [_vm._v("Total Neto:")]
                                       ),
@@ -53691,6 +53700,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Precio")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descuento")]),
         _vm._v(" "),
         _c("th", [_vm._v("Subtotal")])
       ])

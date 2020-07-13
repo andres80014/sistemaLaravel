@@ -52,7 +52,7 @@ class VentaController extends Controller
             ->join('users','ventas.idusuario','=','users.id')
             ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante','ventas.num_comprobante',
                 'ventas.fecha_hora','ventas.impuesto',
-                'ventas.total','ventas.estado','personas.nombre as proveedor','users.usuario')
+                'ventas.total','ventas.estado','personas.nombre as cliente','users.usuario')
             ->where('ventas.id','=',$id)->take(1)->get();
         return ['venta' => $venta];
 
@@ -64,7 +64,7 @@ class VentaController extends Controller
         $detalles = DetalleVenta::join('articulos','detalle_ventas.idarticulo','=','articulos.id')
             ->select('detalle_ventas.cantidad','detalle_ventas.precio','detalle_ventas.descuento','articulos.nombre as articulo')
             ->where('detalle_ventas.idventa','=',$id)
-            ->orderBy('detalle_ingresos.id','desc')->get();
+            ->orderBy('detalle_ventas.id','desc')->get();
         return ['detalles' => $detalles];
     }
     public function show($id)
