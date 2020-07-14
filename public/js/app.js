@@ -2505,6 +2505,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2562,6 +2566,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    listarPdf: function listarPdf() {
+      window.open('http://127.0.0.1:8000/categoria/listarPdf', '_blank');
+    },
     cambiarPagina: function cambiarPagina(page, buscar, criterio) {
       var me = this;
       this.pagination.current_page = page;
@@ -5407,6 +5414,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5498,6 +5510,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    verPdf: function verPdf(id) {
+      window.open('http://127.0.0.1:8000/venta/pdf/' + id, '_blank');
+    },
     cambiarPagina: function cambiarPagina(page, buscar, criterio) {
       var me = this;
       this.pagination.current_page = page;
@@ -5728,6 +5743,8 @@ __webpack_require__.r(__webpack_exports__);
         me.stock = 0;
         me.codigo = '';
         me.arrayDetalle = [];
+        console.log(response.data.id);
+        window.open('http://127.0.0.1:8000/venta/pdf/' + response.data.id, '_blank');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -47096,6 +47113,23 @@ var render = function() {
               _c("i", { staticClass: "icon-plus" }),
               _vm._v(" Nuevo\n                ")
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.listarPdf()
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-doc" }),
+              _vm._v(" Reporte\n                ")
+            ]
           )
         ]),
         _vm._v(" "),
@@ -52154,6 +52188,22 @@ var render = function() {
                                       }
                                     },
                                     [_c("i", { staticClass: "icon-eye" })]
+                                  ),
+                                  _vm._v(
+                                    "  \n\n                                    "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.verPdf(venta.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-doc" })]
                                   ),
                                   _vm._v(
                                     "  \n\n                                    "

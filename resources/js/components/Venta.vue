@@ -53,11 +53,16 @@
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
 
+                                        <button type="button" @click="verPdf(venta.id)" class="btn btn-info btn-sm">
+                                            <i class="icon-doc"></i>
+                                        </button> &nbsp;
+
                                         <template v-if="venta.estado == 'Registrado'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="desactivarVenta(venta.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
+
 
                                     </td>
                                     <td v-text="venta.usuario"></td>
@@ -542,6 +547,10 @@
 
         },
         methods:{
+            verPdf(id){
+                window.open('http://127.0.0.1:8000/venta/pdf/' + id,'_blank');
+            },
+
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 this.pagination.current_page = page;
@@ -813,6 +822,8 @@
                         me.stock             = 0;
                         me.codigo            = '';
                         me.arrayDetalle = [];
+console.log(response.data.id);
+                        window.open('http://127.0.0.1:8000/venta/pdf/' + response.data.id,'_blank');
                     })
                     .catch(function (error) {
                         console.log(error);

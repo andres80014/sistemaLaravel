@@ -80,4 +80,14 @@ class CategoriaController extends Controller
                               ->select ('id','nombre')->orderBy('nombre','desc')->get();
        return $categorias;
     }
+
+    public function listarPdf(){
+        $categorias = Categoria::orderBy('categories.nombre','desc')->get();
+
+        $count = Categoria::count();
+
+        $pdf = \PDF::loadView('pdf.categoriaspdf',['categorias'=>$categorias,'count'=>$count]);
+        return $pdf->download('categorias.pdf');
+
+    }
 }

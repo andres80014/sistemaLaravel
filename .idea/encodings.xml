@@ -52,7 +52,9 @@
     <file url="file://$PROJECT_DIR$/resources/views/contenido/contenido.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/pantilla.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/pdf/articulospdf.blade.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/pdf/categoriaspdf.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/pdf/h.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/pdf/venta.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/plantilla/sidebar.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/web.php" charset="UTF-8" />
     <file url="file://D:/sites/front-hw/resources/js/src/router.js" charset="UTF-8" />

@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/venta/obtenerCabecera','Venta\VentaController@obtenerCabecera');
     Route::put('/venta/desactivar','Venta\VentaController@desactivar');
     Route::get('/articulo/listarPdf','Articulo\ArticuloController@listarPdf')->name('articulospdf');
+    Route::get('categoria/listarPdf','Categoria\CategoriaController@listarPdf')->name('categoriaspdf');
+    Route::get('venta/pdf/{id}','Venta\VentaController@pdf')->name('ventapdf');
 
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
