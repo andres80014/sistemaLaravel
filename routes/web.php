@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/venta/obtenerDetalles','Venta\VentaController@obtenerDetalles');
     Route::get('/venta/obtenerCabecera','Venta\VentaController@obtenerCabecera');
     Route::put('/venta/desactivar','Venta\VentaController@desactivar');
+    Route::get('/articulo/listarPdf','Articulo\ArticuloController@listarPdf')->name('articulospdf');
 
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
