@@ -822,7 +822,7 @@
                         me.stock             = 0;
                         me.codigo            = '';
                         me.arrayDetalle = [];
-console.log(response.data.id);
+
                         window.open('http://127.0.0.1:8000/venta/pdf/' + response.data.id,'_blank');
                     })
                     .catch(function (error) {

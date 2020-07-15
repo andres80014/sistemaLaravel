@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('categoria/listarPdf','Categoria\CategoriaController@listarPdf')->name('categoriaspdf');
     Route::get('venta/pdf/{id}','Venta\VentaController@pdf')->name('ventapdf');
 
+    Route::get('/dashboard','Dashboard\DashboardController')->name('ventapdf');
+
+
     Route::group(['middleware' => ['almacenero']], function () {
         Route::get('/categoria','Categoria\CategoriaController@index');
         Route::get('/categoria/{id}','Categoria\CategoriaController@show');
